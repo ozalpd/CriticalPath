@@ -1,0 +1,15 @@
+﻿@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model ProductCategory
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    if (Model.ParentCategory != null)
+    {
+        @: @Model.ParentCategory.CategoryName /
+    }
+    @: @Model.CategoryName
+}

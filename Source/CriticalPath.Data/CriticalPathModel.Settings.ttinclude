@@ -1,0 +1,462 @@
+﻿<#@ include file="EF6.Utility.CS.ttinclude"
+#><#
+/*
+	After change any setting from here templates have to be executed,
+	easy way to do it run Transform All T4 Templates command from Build menu.
+*/
+bool createAbstractContext = true; //Useful to modify default queries
+bool createDataTransferObjects = true;
+var defaultQuerySettings = new QuerySettings()
+{
+	PublishPropertyName = "IsPublished"
+};
+defaultQuerySettings.SortProperties
+	.AddRange(new string[] 
+	{
+		"DisplayOrder",
+		"Title",
+		"CompanyName",
+		"Name",
+		"LastName",
+		"FirstName",
+		"DepartmentName",
+		"TemplateName"
+	});
+//Object properties those are excluded in DataTransferObjects
+defaultQuerySettings.DtoExclusions
+	.AddRange(new string[]
+		{
+            "CreateDate", 
+            "Creator*",  //properties those names begin with Creator will be excluded
+            "Modifier*", //properties those names begin with Modifier will be excluded
+            "PublishDate",
+            "ModifyDate",
+            "ModifyNr",
+            "ExpireDate",
+			"ApprovedUserId",
+			"ApprovedUserIp",
+			"DiscontinuedUserId",
+			"DiscontinuedUserIp",
+			"CancelledUserId",
+			"CancelledUserIp",
+			"AspNetUserId",
+            defaultQuerySettings.PublishPropertyName
+        });
+
+//  Interface Definition List
+List<InterfaceDefinition> AutoGenInterfaces = new List<InterfaceDefinition>();
+InterfaceDefinition displayOrder = new InterfaceDefinition() { Name = "IDisplayOrder" };
+AutoGenInterfaces.Add(displayOrder);
+displayOrder.Properties.Add(new InterfaceProperty() { TypeName = "int", Name = "DisplayOrder" });
+
+InterfaceDefinition createdUserId = new InterfaceDefinition() { Name = "ICreatorId" };
+AutoGenInterfaces.Add(createdUserId);
+createdUserId.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "CreatorId", OnInsertSetTo = "session.UserId" });
+
+InterfaceDefinition createdIp = new InterfaceDefinition() { Name = "ICreatorIp" };
+AutoGenInterfaces.Add(createdIp);
+createdIp.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "CreatorIp", OnInsertSetTo = "session.UserIp" });
+
+InterfaceDefinition createDate = new InterfaceDefinition() { Name = "ICreateDate" };
+AutoGenInterfaces.Add(createDate);
+createDate.Properties.Add(new InterfaceProperty() { TypeName = "System.DateTime", Name = "CreateDate", OnInsertSetTo = "DateTime.Now" });
+
+InterfaceDefinition modifyNr = new InterfaceDefinition() { Name = "IModifyNr" };
+AutoGenInterfaces.Add(modifyNr);
+modifyNr.Properties.Add(new InterfaceProperty() { TypeName = "int", Name = "ModifyNr" });
+
+InterfaceDefinition modifiedUserId = new InterfaceDefinition() { Name = "IModifierId" };
+AutoGenInterfaces.Add(modifiedUserId);
+modifiedUserId.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "ModifierId", OnUpdateSetTo = "session.UserId" });
+
+InterfaceDefinition modifiedIp = new InterfaceDefinition() { Name = "IModifierIp" };
+AutoGenInterfaces.Add(modifiedIp);
+modifiedIp.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "ModifierIp", OnUpdateSetTo = "session.UserIp" });
+
+InterfaceDefinition modifydate = new InterfaceDefinition() { Name = "IModifyDate" };
+AutoGenInterfaces.Add(modifydate);
+modifydate.Properties.Add(new InterfaceProperty() { TypeName = "System.DateTime", Name = "ModifyDate", OnInsertSetTo = "DateTime.Now", OnUpdateSetTo = "DateTime.Now" });
+
+InterfaceDefinition isApproved = new InterfaceDefinition() { Name = "IIsApproved" };
+AutoGenInterfaces.Add(isApproved);
+isApproved.Properties.Add(new InterfaceProperty() { TypeName = "int", Name = "Id" });
+var approveDate = new InterfaceProperty() { TypeName = "Nullable<System.DateTime>", Name = "ApproveDate", OnInsertSetTo = "DateTime.Now", OnUpdateSetTo = "DateTime.Now" };
+var approveFlag = new InterfaceProperty() { TypeName = "bool", Name = "IsApproved" };
+isApproved.Properties.Add(approveDate);
+isApproved.Properties.Add(approveFlag);
+
+InterfaceDefinition approval = new InterfaceDefinition() { Name = "IApproval" };
+AutoGenInterfaces.Add(approval);
+approval.Properties.Add(approveDate);
+approval.Properties.Add(approveFlag);
+approval.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "ApprovedUserId" });
+approval.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "ApprovedUserIp" });
+
+InterfaceDefinition hasProduct = new InterfaceDefinition() { Name = "IHasProduct" };
+AutoGenInterfaces.Add(hasProduct);
+hasProduct.Properties.Add(new InterfaceProperty() { TypeName = "int", Name = "ProductId" });
+
+InterfaceDefinition cancelled = new InterfaceDefinition() { Name = "ICancelled" };
+AutoGenInterfaces.Add(cancelled);
+cancelled.Properties.Add(new InterfaceProperty() { TypeName = "bool", Name = "Cancelled" });
+cancelled.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<System.DateTime>", Name = "CancelDate" });
+cancelled.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "CancellationReason" });
+
+InterfaceDefinition cancellation = new InterfaceDefinition() { Name = "ICancellation" };
+AutoGenInterfaces.Add(cancellation);
+cancellation.Properties.Add(new InterfaceProperty() { TypeName = "bool", Name = "Cancelled" });
+cancellation.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<System.DateTime>", Name = "CancelDate" });
+cancellation.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "CancellationReason" });
+cancellation.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "CancelledUserId" });
+cancellation.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "CancelledUserIp" });
+
+InterfaceDefinition discontinued = new InterfaceDefinition() { Name = "IDiscontinued" };
+AutoGenInterfaces.Add(discontinued);
+discontinued.Properties.Add(new InterfaceProperty() { TypeName = "bool", Name = "Discontinued" });
+discontinued.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<System.DateTime>", Name = "DiscontinueDate" });
+discontinued.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "DiscontinueNotes" });
+
+InterfaceDefinition discontinuedUser = new InterfaceDefinition() { Name = "IDiscontinuedUser" };
+discontinuedUser.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "DiscontinuedUserId" });
+discontinuedUser.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "DiscontinuedUserIp" });
+AutoGenInterfaces.Add(discontinuedUser);
+
+InterfaceDefinition person = new InterfaceDefinition() { Name = "IPerson" };
+person.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "FirstName" });
+person.Properties.Add(new InterfaceProperty() { TypeName = "string", Name = "LastName" });
+AutoGenInterfaces.Add(person);
+
+InterfaceDefinition allPrice = new InterfaceDefinition() { Name = "IAllPrice" };
+InterfaceDefinition allPriceCurrency = new InterfaceDefinition() { Name = "IAllPriceCurrency" };
+
+InterfaceDefinition sellingPrice = new InterfaceDefinition() { Name = "ISellingPrice" };
+sellingPrice.Properties.Add(new InterfaceProperty() { TypeName = "decimal", Name = "UnitPrice" });
+sellingPrice.Properties.Add(new InterfaceProperty() { TypeName = "int", Name = "SellingCurrencyId" });
+sellingPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<decimal>", Name = "UnitPrice2" });
+sellingPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<int>", Name = "SellingCurrency2Id" });
+AutoGenInterfaces.Add(sellingPrice);
+allPrice.Properties.AddRange(sellingPrice.Properties);
+allPriceCurrency.Properties.AddRange(sellingPrice.Properties);
+
+InterfaceDefinition retailPrice = new InterfaceDefinition() { Name = "IRetailPrice" };
+retailPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<decimal>", Name = "RetailPrice" });
+retailPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<int>", Name = "RetailCurrencyId" });
+AutoGenInterfaces.Add(retailPrice);
+allPrice.Properties.AddRange(retailPrice.Properties);
+allPriceCurrency.Properties.AddRange(retailPrice.Properties);
+
+InterfaceDefinition licensorPrice = new InterfaceDefinition() { Name = "ILicensorPrice" };
+licensorPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<decimal>", Name = "LicensorPrice" });
+licensorPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<int>", Name = "LicensorCurrencyId" });
+AutoGenInterfaces.Add(licensorPrice);
+allPrice.Properties.AddRange(licensorPrice.Properties);
+allPriceCurrency.Properties.AddRange(licensorPrice.Properties);
+
+InterfaceDefinition royalty = new InterfaceDefinition() { Name = "IRoyaltyFee" };
+royalty.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<decimal>", Name = "RoyaltyFee" });
+royalty.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<int>", Name = "RoyaltyCurrencyId" });
+AutoGenInterfaces.Add(royalty);
+allPrice.Properties.AddRange(royalty.Properties);
+allPriceCurrency.Properties.AddRange(royalty.Properties);
+
+InterfaceDefinition buyingPrice = new InterfaceDefinition() { Name = "IBuyingPrice" };
+buyingPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<decimal>", Name = "BuyingPrice" });
+buyingPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<int>", Name = "BuyingCurrencyId" });
+buyingPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<decimal>", Name = "BuyingPrice2" });
+buyingPrice.Properties.Add(new InterfaceProperty() { TypeName = "Nullable<int>", Name = "BuyingCurrency2Id" });
+AutoGenInterfaces.Add(buyingPrice);
+allPrice.Properties.AddRange(buyingPrice.Properties);
+allPriceCurrency.Properties.AddRange(buyingPrice.Properties);
+
+allPriceCurrency.Properties.Add(new InterfaceProperty() { TypeName = "Currency", Name = "SellingCurrency" });
+allPriceCurrency.Properties.Add(new InterfaceProperty() { TypeName = "Currency", Name = "SellingCurrency2" });
+allPriceCurrency.Properties.Add(new InterfaceProperty() { TypeName = "Currency", Name = "BuyingCurrency" });
+allPriceCurrency.Properties.Add(new InterfaceProperty() { TypeName = "Currency", Name = "BuyingCurrency2" });
+allPriceCurrency.Properties.Add(new InterfaceProperty() { TypeName = "Currency", Name = "RetailCurrency" });
+allPriceCurrency.Properties.Add(new InterfaceProperty() { TypeName = "Currency", Name = "RoyaltyCurrency" });
+allPriceCurrency.Properties.Add(new InterfaceProperty() { TypeName = "Currency", Name = "LicensorCurrency" });
+
+AutoGenInterfaces.Add(allPrice);
+AutoGenInterfaces.Add(allPriceCurrency);
+
+//Ends Here - Interface Definition List
+
+ #>
+<#+ 
+/*  Utility Methods Begins Here */
+ #>
+<#+ 
+public void WriteInterfaces(ICollection<InterfaceDefinition> interfaces)
+{
+	foreach(InterfaceDefinition i in interfaces)
+	{
+		WriteInterface (i);
+	}
+} #>
+<#+ 
+public void WriteInterface(InterfaceDefinition intDef)
+{
+ #>
+
+public interface <#= intDef.Name #>
+{
+<#+ foreach (InterfaceProperty p in intDef.Properties)
+{ #>
+    <#= p.TypeName #> <#= p.Name #> { get; set; }
+<#+
+} #>
+}
+<#+
+} #>
+<#+
+//Ozalp 2013
+public class QuerySettings
+{
+	public string PublishPropertyName { get; set; }
+
+	public List<string> SortProperties
+    {
+		set { _properties = value; }
+		get
+		{
+			if (_properties == null) _properties = new List<string>();
+			return _properties;
+        }
+    }
+	List<string> _properties;
+	
+	public List<string> DtoExclusions
+    {
+		set { _exclusions = value; }
+		get
+		{
+			if (_exclusions == null) _exclusions = new List<string>();
+			return _exclusions;
+        }
+    }
+	List<string> _exclusions;
+
+} #>
+<#+
+//Ozalp 2013
+public class InterfaceDefinition
+{
+	public string Name { get; set; }
+	public List<InterfaceProperty> Properties
+    {
+		set { _properties = value; }
+		get
+		{
+			if (_properties == null) _properties = new List<InterfaceProperty>();
+			return _properties;
+        }
+    }
+	List<InterfaceProperty> _properties;
+
+	public bool IsMatching(List<InterfaceProperty> properties)
+    {
+		bool flagMatched = true;
+		foreach (InterfaceProperty p in Properties)
+        {
+			flagMatched = flagMatched & 
+				properties
+					.Where(pr => pr.Name.Equals(p.Name) & pr.TypeName.Equals(p.TypeName))
+					.Any();
+        }
+
+		return flagMatched;
+    }
+}
+public class InterfaceProperty
+{
+	public string Name { get; set; }
+	public string TypeName { get; set; }
+	public string OnInsertSetTo { get; set; }
+	public string OnUpdateSetTo { get; set; }
+}
+public List<InterfaceDefinition> GetMatchedInterfaces(CodeGenerationTools code, EntityType entity, List<InterfaceDefinition> interfaceList)
+{
+	//Önce isimleri tutan bir liste yapalım
+	List<InterfaceProperty> entityProperties = new List<InterfaceProperty>();
+	foreach (var edm in entity.Properties.Where(e => e.DeclaringType == entity))
+    {
+		entityProperties.Add(new InterfaceProperty() 
+		{
+			Name = code.Escape(edm),
+			TypeName = code.Escape(edm.TypeUsage)
+		});
+    }
+
+	List<InterfaceDefinition> intList = new List<InterfaceDefinition>();
+	foreach(var i in interfaceList)
+    {
+		if (i.IsMatching(entityProperties)) intList.Add(i);
+    }
+	return intList;
+}
+public string EntityClassInterfaces(string entityClassOpening, List<InterfaceDefinition> interfaceList)
+{
+	StringBuilder sb = new StringBuilder();
+	
+	foreach(var i in interfaceList)
+    {
+		if (sb.Length > 0)
+		{
+			sb.Append(", ");
+        }
+		else 
+		{
+			sb.Append(entityClassOpening);
+			if(entityClassOpening.Contains(":")) sb.Append(", ");
+			else sb.Append(" : ");
+        }
+		sb.Append(i.Name);
+    }
+	if (sb.Length == 0) sb.Append(entityClassOpening);
+	return sb.ToString();
+}
+ #>
+<#+
+//Ozalp 2013.12.11
+private IEnumerable<EdmProperty> GetAllSimpleProperties(EntityType type, TypeMapper typeMapper)
+{
+    if (type.BaseType != null && type.BaseType is EntityType)
+    {
+        List<EdmProperty> simples = GetAllSimpleProperties((EntityType)type.BaseType, typeMapper).ToList();
+        simples.AddRange(typeMapper.GetSimpleProperties(type));
+        return simples;
+    }
+    else
+    {
+        return typeMapper.GetSimpleProperties(type);
+    }
+}
+ #>
+<#+
+//Ozalp 2015.09.05
+private IEnumerable<EdmProperty> GetSimpleDtoProperties(EntityType type, TypeMapper typeMapper, QuerySettings defaultQuerySettings)
+{
+    var allDtoProperties = GetAllSimpleProperties(type, typeMapper)
+								.Where(p => !defaultQuerySettings.DtoExclusions.Contains(p.Name))
+								.ToList();
+	foreach(var exclusion in defaultQuerySettings.DtoExclusions.Where(e=>e.EndsWith("*")))
+    {
+		var beRemoved = allDtoProperties.Where(p => p.Name.StartsWith(exclusion.Remove(exclusion.Length-1,1))).ToList();
+        foreach (var item in beRemoved)
+        {
+			allDtoProperties.Remove(item);
+		}
+    }
+
+	return allDtoProperties;
+}
+ #>
+<#+ 
+//Ozalp 2013.12.11
+public void WriteDefaultQuery(EntityType entity, EntitySet entitySet, TypeMapper typeMapper, CodeGenerationTools code, QuerySettings querySettings)
+{
+    var allSimpleProperties = GetAllSimpleProperties(entity, typeMapper);
+	EdmProperty orderProperty = null;
+    foreach(string s in querySettings.SortProperties)
+	{
+		orderProperty = allSimpleProperties.FirstOrDefault(p => p.Name.Equals(s));
+		if (orderProperty!=null) break;
+	}
+
+	string entityOrdered = orderProperty == null ? code.Escape(entitySet) :
+                            code.Escape(entitySet) + ".OrderBy(p => p."+ orderProperty.Name +")";
+    bool hasPublishedMark = allSimpleProperties.Where(p=>p.Name == querySettings.PublishPropertyName).Any();
+    //Warning: Uses only first primaryKey 
+    var pKey = entity.KeyMembers.FirstOrDefault();
+ #>
+
+    /// <summary>
+    /// Default query for <#= code.Escape(entitySet) #>
+    /// </summary>
+<#+ if(hasPublishedMark) { #>
+    /// <param name="publishedOnly">Sets query <#= querySettings.PublishPropertyName #> == true</param>
+<#+ } #>
+    /// <returns></returns>
+    public virtual IQueryable<<#= code.Escape(entity) #>> Get<#= code.Escape(entity) #>Query(<#+ if(hasPublishedMark){ #>bool publishedOnly = true<#+ } #>)
+    {
+<#+  if (entity == entitySet.ElementType)
+    {
+#>
+        IQueryable<<#= code.Escape(entity) #>> query = <#= entityOrdered #>;
+<#+ }
+    else
+    { #>
+        IQueryable<<#= code.Escape(entity) #>> query = <#= entityOrdered #>
+														.OfType<<#= code.Escape(entity) #>>();
+<#+ } #>
+<#+  if (hasPublishedMark)
+    { #>
+        if (publishedOnly)
+        {
+            query = query.Where(e => e.<#= querySettings.PublishPropertyName #>);
+        }
+
+<#+  } #>
+        return query;
+    }
+<#+ 
+} #>
+<#+
+//Ozalp 2013.12.11
+public void WriteDtoQuery(EntityType entity, EntitySet entitySet, TypeMapper typeMapper, CodeGenerationTools code, QuerySettings querySettings)
+{
+    string localQueryVar = string.Format("_dto{0}Query", code.Escape(entity)); //code.CamelCase(code.Escape(entity))
+	var allDtoProperties = GetSimpleDtoProperties(entity, typeMapper, querySettings);//2015.09.05
+    bool hasPublishedMark = GetAllSimpleProperties(entity, typeMapper).Where(p=>p.Name == querySettings.PublishPropertyName).Any();
+  #>
+
+    /// <summary>
+    /// Gets a lighter data transfer object query from <#=code.Escape(entity)#> query
+    /// </summary>
+    /// <param name="query">query to be converted</param>
+    /// <returns>Converted data transfer object query</returns>
+    public virtual IQueryable<<#=code.Escape(entity)#>DTO> Get<#=code.Escape(entity)#>DtoQuery(<#+ if(hasPublishedMark){ #>bool publishedOnly = true<#+ } #>)
+    {
+        return Get<#=code.Escape(entity)#>DtoQuery(Get<#= code.Escape(entity) #>Query(<#+ if(hasPublishedMark){ #>publishedOnly<#+ } #>));
+    }
+
+    /// <summary>
+    /// Gets a lighter data transfer object query from <#=code.Escape(entity)#> query
+    /// </summary>
+<#+ if(hasPublishedMark) { #>
+    /// <param name="publishedOnly">Sets query <#= querySettings.PublishPropertyName #> == true</param>
+<#+ } #>
+    /// <returns>Converted data transfer object query</returns>
+    public virtual IQueryable<<#=code.Escape(entity)#>DTO> Get<#=code.Escape(entity)#>DtoQuery(IQueryable<<#= code.Escape(entity) #>> query)
+    {
+        return from e in query
+               select new <#=code.Escape(entity)#>DTO
+               {
+<#+
+foreach (var edmProperty in allDtoProperties)
+{
+#>
+                   <#= code.Escape(edmProperty) #> = e.<#= code.Escape(edmProperty) #>,
+<#+  }#>
+               };
+    }
+
+<#+ 
+} #>
+<#+
+//Ozalp 2014.07.23
+public void WriteLocalQueryVar(EntityType entity, EntitySet entitySet, TypeMapper typeMapper, CodeGenerationTools code, QuerySettings querySettings)
+{
+    bool hasPublishedMark = GetAllSimpleProperties(entity, typeMapper).Where(p=>p.Name == querySettings.PublishPropertyName).Any();
+#>
+        var query = <#=code.Escape(entitySet)#>.OfType<<#= code.Escape(entity) #>>();
+<#+  if (hasPublishedMark)
+    { #>
+        if (publishedOnly)
+        {
+            query = query.Where(e => e.<#= querySettings.PublishPropertyName #>);
+        }
+
+<#+  } #>
+<#+ 
+} #>

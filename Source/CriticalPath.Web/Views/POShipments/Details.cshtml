@@ -1,0 +1,18 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model POShipment
+@{
+    ViewBag.Title = EntityStrings.POShipment;
+
+    //Authorization Flags
+    bool canUserEdit = ViewBag.canUserEdit ?? false;
+    bool canUserCreate = ViewBag.canUserCreate ?? false;
+    bool canUserDelete = ViewBag.canUserDelete ?? false;
+    bool canSeeRestricted = ViewBag.canSeeRestricted ?? false;
+}
+<h2>@EntityStrings.POShipment @ActionStrings.Details</h2>
+@Html.Partial("_Details")
+<div class="form-horizontal">
+@Html.Partial("_DetailFormButtonsPartial")
+</div>

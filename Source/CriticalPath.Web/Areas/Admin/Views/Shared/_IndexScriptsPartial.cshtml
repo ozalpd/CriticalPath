@@ -1,0 +1,89 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model string
+<script type="text/javascript">
+    function setDelete(item, id) {
+        $('#deleteText').html('@MessageStrings.YouAreAboutToDelete ' + item + '.<br/>@MessageStrings.AreYouSure?');
+        @*$('#deleteButton').attr('href', '/@Model/Delete/' + id);*@
+        $('#ajxDelete').attr('onclick', 'ajaxDelete(' + id + ')');
+    }
+    function ajaxDelete(id) {
+        var requestUrl = '/@Model/Delete/' + id;
+        $('#deleteConfirm').modal('hide');
+
+        var request = $.get(requestUrl, function (data) {
+        }).done(function () {
+            refreshData();
+        });
+        showMessageBox('@MessageStrings.Deleting...', '@MessageStrings.PleaseWait.', false);
+
+        request.error(function (jqXHR, textStatus, errorThrown) {
+            var msgboxMsg = jqXHR.responseText;
+            showMessageBox(errorThrown, msgboxMsg, true);
+        });
+    }
+    function showImage(title, imgUrl, cancelButton) {
+        var innerHtml = "<img src='" + imgUrl + "' class='img-responsive center-block' />";
+        showMessageBox(title, innerHtml, cancelButton);
+    }
+    function showMessageBox(title, text, cancelButton) {
+        if (cancelButton) {
+            $('#messageBoxCancelButton').show();
+        }
+        else {
+            $('#messageBoxCancelButton').hide();
+        }
+        $('#messageBoxTitle').html(title);
+        $('#messageBoxText').html(text);
+        $('#messageBox').modal('show');
+    }
+    function hideMessageBox() {
+        $('#messageBox').modal('hide');
+    }
+    function showCannotDelete(item, relatedRecords) {
+        var msgText = '@MessageStrings.CanNotDelete ' + item + '.<br/>@MessageStrings.BecauseOfRelatedRecords.<br/>' + relatedRecords;
+        showMessageBox('@MessageStrings.UnableToDelete!', msgText, true);
+    }
+    function toogleAccordionSign() {
+        if ($('#filterPanel').hasClass('in')) {
+            $('#filterPanelSign').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+            console.log('collapsed');
+        }
+        else {
+            $('#filterPanelSign').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            console.log('expanded');
+        }
+    }
+    function submitDataInputForm() {
+        var inputForm = $('#dataInputForm');
+        if ($(inputForm).valid()) {
+            $('#busyAnima').show();
+            var url = $(inputForm).attr('action');
+            url += (url.indexOf('?') == -1) ? '?' : '&';
+            url += 'modal=true';
+            $.ajax({
+                url: url,
+                type: $(inputForm).attr('method'),
+                data: $(inputForm).serialize(),
+				cache: false,
+                success: function (result) {
+                    if (result.saved) {
+                        refreshData();
+                        $('#dataInputModal').modal('hide');
+                    }
+                    else {
+                        $('#dataInputBody').html(result);
+                    }
+                    $('#busyAnima').hide();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#dataInputModal').modal('hide');
+                    var msgboxMsg = jqXHR.responseText;
+                    showMessageBox(errorThrown, msgboxMsg, true);
+                    $('#busyAnima').hide();
+                }
+            });
+        }
+    }
+</script>

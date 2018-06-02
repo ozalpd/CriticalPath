@@ -1,0 +1,38 @@
+﻿@using CP.i8n
+@using CriticalPath.Data
+@model ProductDTO
+@{
+    Layout = null;
+}
+
+<div class="form-group">
+    @Html.Label(EntityStrings.Category, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3 col-xs-12" })
+    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
+        @Html.DropDownList("ParentCategoryId", null, ActionStrings.SelectPlease, htmlAttributes: new { @class = "form-control" })
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-7">
+        @Html.DropDownListFor(m => m.CategoryId, null, ActionStrings.SelectPlease, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    </div>
+</div>
+<script type="text/javascript">
+    $('#ParentCategoryId').change(function () {
+        var selectedId = $(this).val();
+        if (selectedId != null && selectedId != '') {
+            $.getJSON('/ProductCategories/GetProductCategoryList', { parentCategoryId: selectedId, pageSize: 100 }, function (categories) {
+                var targetSelect = $('#CategoryId');
+                targetSelect.empty();
+                targetSelect.append($('<option/>', {
+                    value: '',
+                    text: '@Html.Raw(ActionStrings.SelectPlease)'
+                }));
+                $.each(categories, function (index, category) {
+                    targetSelect.append($('<option/>', {
+                        value: category.Id,
+                        text: category.CategoryName
+                    }));
+                });
+            });
+        }
+    });
+</script>

@@ -1,0 +1,127 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model Product
+@{
+    ViewBag.Title = EntityStrings.Product;
+
+    //Authorization Flags
+    bool canUserEdit = ViewBag.canUserEdit;
+    bool canUserCreate = ViewBag.canUserCreate;
+    bool canUserDelete = ViewBag.canUserDelete;
+    bool canSeeRestricted = ViewBag.canSeeRestricted;
+}
+
+<h2>@EntityStrings.Product @ActionStrings.Details</h2>
+<div class="form-horizontal">
+
+    <div class="row">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.ProductCode)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.ProductCode)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.Description)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.Description)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @CommonStrings.CurrentImage
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @if (string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@AppSettings.Urls.NoImageAvailable" style="width:40%;border:2px solid black" />
+            }
+            else
+            {
+                <img src="@AppSettings.Urls.ProductImages/@Model.ImageUrl" alt="@Model.Description" style="width:75%" />
+            }
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.Category)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.Category)
+        </div>
+    </div>
+    @if (canSeeRestricted)
+    {
+        @Html.Partial("_AllPrice", Model)
+    }
+    <div class="row">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.PurchaseOrders)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.PurchaseOrders.Count)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.Suppliers)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.Suppliers)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.CreateDate)
+            @Html.DisplayFor(m => m.CreatedUser)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.ModifyDate)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.ModifyDate)
+            @Html.DisplayFor(m => m.ModifiedUser)
+        </div>
+    </div>
+    @if (Model.Discontinued)
+    {
+        <div class="row">
+            <label class="control-label col-md-2 col-sm-3 mb5">
+                @Html.DisplayNameFor(model => model.DiscontinueDate)
+            </label>
+            <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+                @Html.DisplayFor(m => m.DiscontinueDate)
+                @Html.DisplayFor(model => model.DiscontinuedUser)
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-md-2 col-sm-3 mb5">
+                @Html.DisplayNameFor(model => model.DiscontinueNotes)
+            </label>
+            <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+                @Html.DisplayFor(m => m.DiscontinueNotes)
+            </div>
+        </div>
+    }
+    @if (canSeeRestricted && Model.Discontinued)
+    {
+        <div class="row">
+            <label class="control-label col-md-2 col-sm-3 mb5">
+                @Html.DisplayNameFor(model => model.DiscontinuedUserIp)
+            </label>
+            <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+                @Html.DisplayFor(m => m.DiscontinuedUserIp)
+            </div>
+        </div>
+    }
+    @Html.Partial("_DetailFormButtonsPartial")
+</div>

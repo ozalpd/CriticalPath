@@ -1,0 +1,619 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CriticalPath.Web.Controllers
+@using CP.i8n
+@model IEnumerable<PurchaseOrder>
+@{
+    ViewBag.Title = @EntityStrings.PurchaseOrders;
+
+    //Authorization Flags
+    bool canUserEdit = ViewBag.canUserEdit;
+    bool canUserCreate = ViewBag.canUserCreate;
+    bool canUserDelete = ViewBag.canUserDelete;
+    bool canUserApprove = ViewBag.canUserApprove;
+    bool canUserCancelPO = ViewBag.canUserCancelPO;
+
+    PurchaseOrdersController.QueryParameters qParams = ViewBag.qParams;
+    bool canSeeRestricted = ViewBag.canSeeRestricted && !qParams.HideRestricted;
+
+    //Records & Pager
+    int page = ViewBag.page;
+    int totalCount = ViewBag.totalCount;
+    int pageCount = ViewBag.pageCount;
+    int grandTotal = 0;
+
+    string dateFormat = "yyyy-MM-dd";
+    string orderDateMin = qParams.OrderDateMin.HasValue ? qParams.OrderDateMin.Value.ToString(dateFormat) : string.Empty;
+    string orderDateMax = qParams.OrderDateMax.HasValue ? qParams.OrderDateMax.Value.ToString(dateFormat) : string.Empty;
+    string dueDateMin = qParams.DueDateMin.HasValue ? qParams.DueDateMin.Value.ToString(dateFormat) : string.Empty;
+    string dueDateMax = qParams.DueDateMax.HasValue ? qParams.DueDateMax.Value.ToString(dateFormat) : string.Empty;
+    string supplierDueDateMin = qParams.SupplierDueDateMin.HasValue ? qParams.SupplierDueDateMin.Value.ToString(dateFormat) : string.Empty;
+    string supplierDueDateMax = qParams.SupplierDueDateMax.HasValue ? qParams.SupplierDueDateMax.Value.ToString(dateFormat) : string.Empty;
+
+    string filterPanelClass = ViewBag.FilterPanelExpanded ? "accordion-body collapse in" : "accordion-body collapse";
+    string filterButtonClass = ViewBag.FilterPanelExpanded ? "glyphicon glyphicon-minus" : "glyphicon glyphicon-plus";
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "searchForm" }))
+{
+    @Html.Hidden("page", page)
+    @Html.Hidden("collapsed")
+    <div class="well hidden-print">
+        <div class="accordion">
+            <div id="filterAccordion" class="accordion-group row">
+                <div class="accordion-heading">
+                    <div class="col-md-4">
+                        <h4>@EntityStrings.PurchaseOrders</h4>
+                    </div>
+                    <div class="col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-0">
+                        @Html.Label(EntityStrings.IsApproved, new { @class = "control-label col-xs-5 mt7" })
+                        <div class="col-xs-7">
+                            <select id="IsApproved" name="IsApproved" class="form-control">
+                                @if (!qParams.IsApproved.HasValue)
+                                {
+                                    <option value="null" selected="selected">@ActionStrings.DisplayAll</option>
+                                    <option value="true">@ActionStrings.Yes</option>
+                                    <option value="false">@ActionStrings.No</option>
+                                }
+                                else if (qParams.IsApproved.Value)
+                                {
+                                    <option value="null">@ActionStrings.DisplayAll</option>
+                                    <option value="true" selected="selected">@ActionStrings.Yes</option>
+                                    <option value="false">@ActionStrings.No</option>
+                                }
+                                else
+                                {
+                                    <option value="null">@ActionStrings.DisplayAll</option>
+                                    <option value="true">@ActionStrings.Yes</option>
+                                    <option value="false" selected="selected">@ActionStrings.No</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="input-group">
+                            @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = MessageStrings.EnterKeywordHere })
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" onclick="getPagedData(1)">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                            <span class="input-group-btn">
+                                <a class="accordion-toggle btn btn-success" data-toggle="collapse"
+                                   data-parent="filterAccordion" href="#filterPanel" onclick='toogleAccordionSign()'>
+                                    <span id="filterPanelSign" class="@filterButtonClass"></span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="filterPanel" class="@filterPanelClass">
+                <div class="accordion-inner">
+                    <!-- Accordion inner-->
+                    <div class="form-horizontal mt5">
+                        <div class="row mb5">
+                            <div class="col-sm-4">
+                                <div class="checkbox ml20">
+                                    @Html.CheckBox("Cancelled")
+                                    @EntityStrings.Cancelled
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox ml20">
+                                    @Html.CheckBox("HideRestricted")
+                                    Hide Restricted Columns
+                                </div>
+                            </div>
+                            @Html.Partial("_PageSizeSelect")
+                        </div>
+
+                        <div class="row mb5">
+                            @Html.Label(EntityStrings.OrderDate, new { @class = "control-label col-sm-5" })
+                            <div class="col-sm-3">
+                                <input type="text" id="OrderDateMin" name="OrderDateMin" class="form-control" value="@orderDateMin" autocomplete="off">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" id="OrderDateMax" name="OrderDateMax" class="form-control" value="@orderDateMax" autocomplete="off">
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-primary pull-right" onclick="$('#OrderDateMin').val(''); $('#OrderDateMax').val('');">
+                                    @ActionStrings.Clear
+                                </button>
+                            </div>
+                        </div>
+
+                        @if (canSeeRestricted)
+                        {
+                            <div class="row mb5">
+                                @Html.Label(EntityStrings.DueDate, new { @class = "control-label col-sm-5" })
+                                <div class="col-sm-3">
+                                    <input type="text" id="DueDateMin" name="DueDateMin" class="form-control" value="@dueDateMin" autocomplete="off">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" id="DueDateMax" name="DueDateMax" class="form-control" value="@dueDateMax" autocomplete="off">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-primary pull-right" onclick="$('#DueDateMax').val(''); $('#DueDateMin').val('');">
+                                        @ActionStrings.Clear
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+
+                        <div class="row mb5">
+                            @Html.Label(EntityStrings.SupplierDueDate, new { @class = "control-label col-sm-5" })
+                            <div class="col-sm-3">
+                                <input type="text" id="SupplierDueDateMin" name="SupplierDueDateMin" class="form-control" value="@supplierDueDateMin" autocomplete="off">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" id="SupplierDueDateMax" name="SupplierDueDateMax" class="form-control" value="@supplierDueDateMax" autocomplete="off">
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-primary pull-right" onclick="$('#SupplierDueDateMin').val(''); $('#SupplierDueDateMax').val('');">
+                                    @ActionStrings.Clear
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row mb5">
+                            <div class="col-sm-4">
+                                @Html.DropDownList("CustomerId", null, CommonStrings.AllCustomers, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.DropDownList("CustomerDepartmentId", null, CommonStrings.AllDepartments, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.DropDownList("SupplierId", null, CommonStrings.AllSuppliers, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row mb5">
+                            <div class="col-sm-4">
+                                @Html.DropDownList("MerchandiserId", null, CommonStrings.AllMerchandisers, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.DropDownList("DesignerId", null, CommonStrings.AllDesigners, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="button" class="btn btn-default pull-right" onclick="getPagedData(1)">
+                                    @ActionStrings.Search
+                                </button>
+                                <button type="button" class="btn btn-primary pull-right mr20" onclick="clearFilter()">
+                                    Clear All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--// Accordion inner-->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (totalCount > 0)
+{
+    <div id="dataTable" class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <tr>
+                <th class="hidden-print" width="24px">
+                    @ActionStrings.Action
+                    <a href="javascript:downloadTable('pdf');" class="btn btn-xs btn-danger mt5" style="margin-left:-4px;" title="Download a PDF file"><i class="fa fa-file-pdf-o"></i></a>
+                    <a href="javascript:downloadTable();" class="btn btn-xs btn-success mt5" style="margin-right:-6px;" title="Download an image file"><i class="fa fa-file-image-o"></i></a>
+                </th>
+                <th title="Order Date / Cancel Status / Approve Status">
+                    @Html.DisplayNameFor(model => model.OrderDate)
+                    @if (qParams.OrderDateMin.HasValue || qParams.OrderDateMax.HasValue)
+                {
+                        <span class="glyphicon glyphicon-filter"></span>
+                    }<br />
+                    Cancel/Appr.
+                </th>
+                @if (canSeeRestricted)
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.DueDate)
+                        @if (qParams.DueDateMax.HasValue || qParams.DueDateMin.HasValue || qParams.SupplierDueDateMin.HasValue || qParams.SupplierDueDateMax.HasValue)
+                    {
+                            <span class="glyphicon glyphicon-filter"></span>
+                        }
+                    </th>
+                }
+                <th>@Html.DisplayNameFor(model => model.Product)</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PoNr)<br />
+                    @Html.DisplayNameFor(model => model.RefCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Designer)
+                    @if (qParams.DesignerId.HasValue)
+                {
+                        <span class="glyphicon glyphicon-filter"></span>
+                    }
+                </th>
+                <th>
+                    @EntityStrings.Merchandiser
+                    @if (qParams.MerchandiserId.HasValue)
+                {
+                        <span class="glyphicon glyphicon-filter"></span>
+                    }
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Supplier)
+                    @if (qParams.SupplierId.HasValue)
+                {
+                        <span class="glyphicon glyphicon-filter"></span>
+                    }
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customer)<br />
+                    @Html.DisplayNameFor(model => model.CustomerDepartment)
+                    @if (qParams.CustomerId.HasValue)
+                {
+                        <span class="glyphicon glyphicon-filter"></span>
+                    }
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Licensor)
+                    @if (qParams.LicensorId.HasValue)
+                {
+                        <span class="glyphicon glyphicon-filter"></span>
+                    }
+                </th>
+                <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                <th>@Html.DisplayNameFor(model => model.Shipments)</th>
+                @if (canSeeRestricted)
+                {
+                    <th>@Html.DisplayNameFor(model => model.DiscountRate)</th>
+                    <th>@Html.DisplayNameFor(model => model.UnitPrice)</th>
+                }
+            </tr>
+            @foreach (var item in Model)
+            {
+                var vm = new PurchaseOrderVM(item);
+                <tr>
+                    <td class="hidden-print">
+                        <div class="btn-group">
+                            <button type="button" title="@ActionStrings.Action" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-tasks"></span> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink(ActionStrings.Details, "Details", new { id = item.Id })</li>
+                                @if (canUserEdit)
+                                {
+                                    <li>@Html.ActionLink(ActionStrings.Edit, "Edit", new { id = item.Id }, new { input_modal = EntityStrings.EditPurchaseOrder })</li>
+                                }
+                                @if (!item.IsApproved && canUserDelete)
+                                {
+                                    <li>
+                                        <a href="#deleteConfirm" data-toggle="modal" onclick="setDelete('<b>@EntityStrings.PoNr @item.PoNr, @EntityStrings.Product @item.Product.ProductCode</b>', @item.Id);">
+                                            @ActionStrings.Delete
+                                        </a>
+                                    </li>
+                                }
+                                @if (canUserEdit)
+                                {
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink(EntityStrings.AddPOImage, "Create", "POImages", new { purchaseOrderId = item.Id }, null)</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink(EntityStrings.AddPOShipment, "Create", "POShipments", new { purchaseOrderId = item.Id }, new { input_modal = EntityStrings.AddPOShipment })</li>
+                                }
+                                @if (item.Shipments.Count > 0)
+                                {
+                                    <li>@Html.ActionLink(EntityStrings.POShipmentsList, "Index", "POShipments", new { purchaseOrderId = item.Id }, new { input_modal = EntityStrings.POShipmentsList })</li>
+                                }
+                                @if (canUserCreate)
+                                {
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink(ActionStrings.Repeat, "Repeat", new { id = item.Id })</li>
+                                }
+                                @if ((!item.Cancelled && canUserCancelPO) || (!item.IsApproved && canUserApprove))
+                                {
+                                    <li class="divider"></li>
+                                }
+                                @if (!item.Cancelled && !item.IsApproved && canUserApprove)
+                                {
+                                    <li>@Html.ActionLink(ActionStrings.Approve, "Approve", new { id = item.Id })</li>
+                                }
+                                @if (!item.Cancelled && canUserCancelPO)
+                                {
+                                    <li>@Html.ActionLink(ActionStrings.CancelPO, "CancelPO", new { id = item.Id })</li>
+                                }
+                                @if (item.Processes.Count == 0)
+                                {
+                                    <li>@Html.ActionLink(EntityStrings.CreateProcess, "Create", "Processes", new { purchaseOrderId = item.Id }, null)</li>
+                                }
+                                @if (!item.IsApproved && canUserEdit)
+                                {
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink(EntityStrings.EditProduct, "Edit", "Products", new { id = item.ProductId }, null)</li>
+                                }
+                            </ul>
+                        </div>
+                        @if (!string.IsNullOrEmpty(item.InitialComments))
+                        {
+                            <a href="javascript:showMessageBox('@EntityStrings.InitialComments','@Html.Encode(item.InitialComments)');" title="@EntityStrings.InitialComments" class="btn btn-xs btn-default mb3 mt3">
+                                <i class="fa fa-sticky-note"></i>
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(item.Notes))
+                        {
+                            <a href="javascript:showMessageBox('@EntityStrings.Notes','@Html.Encode(item.Notes)');" title="@EntityStrings.Notes" class="btn btn-xs btn-success mb3 mt3">
+                                <i class="fa fa-sticky-note-o"></i>
+                            </a>
+                        }
+                    </td>
+                    <td align="right">
+                        @Html.DisplayFor(modelItem => item.OrderDate)
+                        @if (item.Cancelled)
+                        {
+                            <div title="@EntityStrings.Cancelled">
+                                @Html.DisplayFor(modelItem => item.Cancelled)
+                                <span class="checkboxText">@Html.DisplayFor(i => item.CancelDate)</span>
+                            </div>
+                        }
+                        @if (item.IsApproved)
+                        {
+                            <div title="@EntityStrings.IsApproved">
+                                @Html.DisplayFor(modelItem => item.IsApproved)
+                                <span class="checkboxText">@Html.DisplayFor(i => item.ApproveDate)</span>
+                            </div>
+                        }
+                    </td>
+                    @if (canSeeRestricted)
+                    {
+                        <td align="right">@Html.DisplayFor(modelItem => item.DueDate)</td>
+                    }
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Product?.ImageUrl))
+                    {
+                            <label class="btn pt0 pb0 pl0 pr0 thumbInListWrapper"
+                                   onclick="showImage('@Html.Encode(item.Product.ProductCode)', '@AppSettings.Urls.ProductImages/@item.Product.ImageUrl', false)">
+                                <img src="@AppSettings.Urls.ThumbImages/@item.Product.ImageUrl" />
+                            </label>
+                        }
+                        @Html.DisplayFor(modelItem => item.Product)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PoNr)
+                        @if (!string.IsNullOrEmpty(item.RefCode))
+                    {
+                            <br />@Html.DisplayFor(modelItem => item.RefCode)
+
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Designer)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Merchandiser1)
+                        @Html.DisplayFor(modelItem => item.Merchandiser2)
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Supplier)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer)
+                        @if (item.CustomerDepartment != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.CustomerDepartment)
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Licensor)</td>
+                    <td align="right">
+                        @item.Quantity.ToString("###,###")
+                        @{
+                            grandTotal += item.Quantity;
+                        }
+                        @Html.Partial("_ListSizeRatios", item)
+                    </td>
+                    <td>
+                        @if (item.Shipments.Any())
+                    {
+                        int total = 0;
+                        int shipped = 0;
+                        int delivered = 0;
+                        foreach (var shipment in item.Shipments.OrderBy(s => s.ShippingDate))
+                        {
+                            total += shipment.Quantity;
+                            shipped = shipment.IsShipped ? shipped + shipment.Quantity : shipped;
+                            delivered = shipment.IsDelivered ? delivered + shipment.Quantity : delivered;
+                                @Html.DisplayFor(modelShipment => shipment)
+                            }
+                            <div class="pb25">
+                                <hr class="mt2 mb2" />
+                                <div title="Total Shipped" class="pull-left text-right" style="width:54px">@shipped.ToString("###,###") |</div>
+                                <div title="Total Delivered" class="pull-left text-right" style="width:53px">@delivered.ToString("###,###") |</div>
+                                <div title="Shipments Total" class="pull-right">@total.ToString("###,###")</div>
+                            </div>
+                        }
+
+                    </td>
+                    @if (canSeeRestricted)
+                    {
+                        <td align="right">@Html.DisplayFor(modelItem => item.DiscountRate)</td>
+                        <td align="right">
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                            @Html.DisplayFor(modelItem => item.SellingCurrency)
+                        </td>
+                    }
+                </tr>
+                            }
+            <tr class="bottom-row">
+                <td class="hidden-print"></td>
+                <td colspan="3">
+                    Total Records: @totalCount
+                    Seen: @Model.Count()
+                </td>
+                @if (canSeeRestricted)
+                {
+                    <td></td>
+                }
+                <td colspan="3"></td>
+                <td align="right" colspan="2">Total Quantities</td>
+                <td align="right">@grandTotal.ToString("###,###")</td>
+                @if (canSeeRestricted)
+                {
+                    <td></td>
+                    <td></td>
+                }
+            </tr>
+        </table>
+        @Html.Partial("_PagerPartial")
+    </div>
+}
+else
+{
+    <h4>@MessageStrings.NoResults!</h4>
+}
+@Html.Partial("_MessageBoxPartial")
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Html.Partial("_IndexScriptsPartial", "PurchaseOrders")
+    <script type="text/javascript">
+        function downloadTable(opt) {
+            $('#busyAnima').show();
+            $('#dataTable').width(1680);
+            $('#dataTable').addClass('printing');
+
+            $('.hidden-print').hide(0);
+            html2canvas($("#dataTable"), {
+                onrendered: function (canvas) {
+                    if (opt === 'pdf') {
+                        var imgData = canvas.toDataURL(
+                        'image/png');
+                        var doc = new jsPDF('p', 'mm', 'a4');
+                        doc.addImage(imgData, 'PNG', 10, 10, 190, 260);
+                        doc.save('POtable.pdf');
+                    }
+                    else {
+                        var a = document.createElement('a');
+                        a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+                        a.download = 'POtable.jpg';
+                        a.click();
+                    }
+                }
+            });
+            setTimeout(function () {
+                $('.hidden-print').show(250);
+                $('#dataTable').removeClass('printing');
+                $('#dataTable').css({ width: 'auto', height: 'auto' });
+                $('#busyAnima').fadeOut('250');
+            }, 500);
+        }
+
+        (function () {
+            $.ajaxSetup({
+                cache: false
+            });
+            setActionLinks();
+            $('#CustomerId').change(function () {
+                var customerId = $(this).val();
+                var targetSelect = $('#CustomerDepartmentId');
+                targetSelect.empty();
+                targetSelect.append($('<option/>', {
+                    value: '',
+                    text: 'All Departments'
+                }));
+                if (customerId != null && customerId != '') {
+                    $.getJSON('/CustomerDepartments/GetCustomerDepartmentList', { customerId: customerId, pageSize: 100 }, function (customerDepartments) {
+                        $.each(customerDepartments, function (index, customerDepartment) {
+                            targetSelect.append($('<option/>', {
+                                value: customerDepartment.Id,
+                                text: customerDepartment.DepartmentName
+                            }));
+                        });
+                    });
+                }
+            });
+            var dateFormat = "yy-mm-dd";
+            $("#OrderDateMin").datepicker({ dateFormat: dateFormat, numberOfMonths: 2 });
+            $("#OrderDateMax").datepicker({ dateFormat: dateFormat, numberOfMonths: 2 });
+            $("#OrderDateMin").datepicker("option", "onClose", function (selectedDate) {
+                if (selectedDate) {
+                    $("#OrderDateMax").datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $("#OrderDateMax").datepicker("option", "onClose", function (selectedDate) {
+                if (selectedDate) {
+                    $("#OrderDateMin").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+            //Initiliaze DueDate Filter
+            $("#DueDateMin").datepicker({ dateFormat: dateFormat, numberOfMonths: 2 });
+            $("#DueDateMax").datepicker({ dateFormat: dateFormat, numberOfMonths: 2 });
+            $("#DueDateMin").datepicker("option", "onClose", function (selectedDate) {
+                if (selectedDate) {
+                    $("#DueDateMax").datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $("#DueDateMax").datepicker("option", "onClose", function (selectedDate) {
+                if (selectedDate) {
+                    $("#DueDateMin").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+            //Initiliaze SupplierDueDate Filter
+            $("#SupplierDueDateMin").datepicker({ dateFormat: dateFormat, numberOfMonths: 2 });
+            $("#SupplierDueDateMax").datepicker({ dateFormat: dateFormat, numberOfMonths: 2 });
+            $("#SupplierDueDateMin").datepicker("option", "onClose", function (selectedDate) {
+                if (selectedDate) {
+                    $("#SupplierDueDateMax").datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $("#SupplierDueDateMax").datepicker("option", "onClose", function (selectedDate) {
+                if (selectedDate) {
+                    $("#SupplierDueDateMin").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+            $('#busyAnima').hide();
+        }());
+        function clearFilter() {
+            $('#OrderDateMin').val('');
+            $('#OrderDateMax').val('');
+            $('#DueDateMin').val('');
+            $('#DueDateMax').val('');
+            $('#SupplierDueDateMin').val('');
+            $('#SupplierDueDateMax').val('');
+            $('#SearchString').val('');
+
+            setSelectListID('#CustomerId > option', '');
+            setSelectListID('#CustomerDepartmentId > option', '');
+            setSelectListID('#SupplierId > option', '');
+
+            setSelectListID('#DesignerId > option', '');
+            setSelectListID('#MerchandiserId > option', '');
+        }
+        function setActionLinks() {
+            $('a[input-modal]').on('click', function (params) {
+                if (params.ctrlKey || params.metaKey || params.altKey) {
+                    return true;
+                }
+                showMessageBox('@MessageStrings.Loading...', '@MessageStrings.PleaseWait.', false);
+                var title = $(this).attr("input-modal");
+                var url = this.href;
+                url += (url.indexOf('?') == -1) ? '?' : '&';
+                url += 'modal=true';
+                $('#dataInputBody').load(url, function () {
+                    hideMessageBox();
+                    if (title != null || title != '') {
+                        $('#dataInputTitle').html(title);
+                    }
+                    var inputForm = document.getElementById('dataInputForm');
+                    if (isNaN(inputForm)) {
+                        $('#dataInputFooter').show();
+                    }
+                    else {
+                        $('#dataInputFooter').hide();
+                    }
+                    $('#dataInputModal').modal('show');
+                });
+                return false;
+            });
+        }
+        function toogleAccordionSign() {
+            if ($('#filterPanel').hasClass('in')) {
+                $('#filterPanelSign').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+                $('#collapsed').val(true);
+            }
+            else {
+                $('#filterPanelSign').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+                $('#collapsed').val(false);
+            }
+        }
+    </script>
+}

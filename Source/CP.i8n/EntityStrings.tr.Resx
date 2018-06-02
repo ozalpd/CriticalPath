@@ -1,0 +1,1909 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+    <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+	<data name="AccessFailedCount" xml:space="preserve">
+		<value>Erişim Hata Sayısı</value>
+	</data>
+
+	<data name="AddAspNetUser" xml:space="preserve">
+		<value>Uygulama Kullanıcısı Ekle</value>
+	</data>
+
+	<data name="AddCompany" xml:space="preserve">
+		<value>Şirket Ekle</value>
+	</data>
+
+	<data name="AddContact" xml:space="preserve">
+		<value>Kişi Ekle</value>
+	</data>
+
+	<data name="AddCountry" xml:space="preserve">
+		<value>Ülke Ekle</value>
+	</data>
+
+	<data name="AddCurrency" xml:space="preserve">
+		<value>Para Birimi Ekle</value>
+	</data>
+
+	<data name="AddCustomer" xml:space="preserve">
+		<value>Müşteri Ekle</value>
+	</data>
+
+	<data name="AddCustomerDepartment" xml:space="preserve">
+		<value>Departman Ekle</value>
+	</data>
+
+	<data name="AddEmployee" xml:space="preserve">
+		<value>Çalışan Ekle</value>
+	</data>
+
+	<data name="AddEmployeePosition" xml:space="preserve">
+		<value>İş Pozisyonu Ekle</value>
+	</data>
+
+	<data name="AddFreightTerm" xml:space="preserve">
+		<value>Nakliye Koşulu Ekle</value>
+	</data>
+
+	<data name="AddLicensor" xml:space="preserve">
+		<value>Lisans Sahibi Ekle</value>
+	</data>
+
+	<data name="AddManufacturer" xml:space="preserve">
+		<value>Üretici Ekle</value>
+	</data>
+
+	<data name="AddNewAspNetUser" xml:space="preserve">
+		<value>Yeni Uygulama Kullanıcısı Ekle</value>
+	</data>
+
+	<data name="AddNewCompany" xml:space="preserve">
+		<value>Yeni Şirket Ekle</value>
+	</data>
+
+	<data name="AddNewContact" xml:space="preserve">
+		<value>Yeni Kişi Ekle</value>
+	</data>
+
+	<data name="AddNewCountry" xml:space="preserve">
+		<value>Yeni Ülke Ekle</value>
+	</data>
+
+	<data name="AddNewCurrency" xml:space="preserve">
+		<value>Yeni Para Birimi Ekle</value>
+	</data>
+
+	<data name="AddNewCustomer" xml:space="preserve">
+		<value>Yeni Müşteri Ekle</value>
+	</data>
+
+	<data name="AddNewCustomerDepartment" xml:space="preserve">
+		<value>Yeni Departman Ekle</value>
+	</data>
+
+	<data name="AddNewEmployee" xml:space="preserve">
+		<value>Yeni Çalışan Ekle</value>
+	</data>
+
+	<data name="AddNewEmployeePosition" xml:space="preserve">
+		<value>Yeni İş Pozisyonu Ekle</value>
+	</data>
+
+	<data name="AddNewFreightTerm" xml:space="preserve">
+		<value>Yeni Nakliye Koşulu Ekle</value>
+	</data>
+
+	<data name="AddNewLicensor" xml:space="preserve">
+		<value>Yeni Lisans Sahibi Ekle</value>
+	</data>
+
+	<data name="AddNewManufacturer" xml:space="preserve">
+		<value>Yeni Üretici Ekle</value>
+	</data>
+
+	<data name="AddNewPOAttachment" xml:space="preserve">
+		<value>Yeni Sipariş Eklentisi Ekle</value>
+	</data>
+
+	<data name="AddNewPOImage" xml:space="preserve">
+		<value>Yeni Sipariş Resmi Ekle</value>
+	</data>
+
+	<data name="AddNewPOShipment" xml:space="preserve">
+		<value>Yeni Nakliye Ekle</value>
+	</data>
+
+	<data name="AddNewPOSizeRatio" xml:space="preserve">
+		<value>Yeni Assorti Ekle</value>
+	</data>
+
+	<data name="AddNewProcess" xml:space="preserve">
+		<value>Yeni Süreç Ekle</value>
+	</data>
+
+	<data name="AddNewProcessStep" xml:space="preserve">
+		<value>Yeni Süreç Adımı Ekle</value>
+	</data>
+
+	<data name="AddNewProcessStepRevision" xml:space="preserve">
+		<value>Yeni Süreç Adım Tadilatı Ekle</value>
+	</data>
+
+	<data name="AddNewProcessStepTemplate" xml:space="preserve">
+		<value>Yeni Süreç Adım Şablonu Ekle</value>
+	</data>
+
+	<data name="AddNewProcessTemplate" xml:space="preserve">
+		<value>Yeni Süreç Şablonu Ekle</value>
+	</data>
+
+	<data name="AddNewProduct" xml:space="preserve">
+		<value>Yeni Ürün Ekle</value>
+	</data>
+
+	<data name="AddNewProductCategory" xml:space="preserve">
+		<value>Yeni Ürün Kategorisi Ekle</value>
+	</data>
+
+	<data name="AddNewPurchaseOrder" xml:space="preserve">
+		<value>Yeni Sipariş Ekle</value>
+	</data>
+
+	<data name="AddNewSizing" xml:space="preserve">
+		<value>Yeni Ölçülendirme Ekle</value>
+	</data>
+
+	<data name="AddNewSizingStandard" xml:space="preserve">
+		<value>Yeni Ölçü Standartı Ekle</value>
+	</data>
+
+	<data name="AddNewSupplier" xml:space="preserve">
+		<value>Yeni Tedarikçi Ekle</value>
+	</data>
+
+	<data name="AddPOAttachment" xml:space="preserve">
+		<value>Sipariş Eklentisi Ekle</value>
+	</data>
+
+	<data name="AddPOImage" xml:space="preserve">
+		<value>Sipariş Resmi Ekle</value>
+	</data>
+
+	<data name="AddPOShipment" xml:space="preserve">
+		<value>Nakliye Ekle</value>
+	</data>
+
+	<data name="AddPOSizeRatio" xml:space="preserve">
+		<value>Assorti Ekle</value>
+	</data>
+
+	<data name="AddProcess" xml:space="preserve">
+		<value>Süreç Ekle</value>
+	</data>
+
+	<data name="AddProcessStep" xml:space="preserve">
+		<value>Süreç Adımı Ekle</value>
+	</data>
+
+	<data name="AddProcessStepRevision" xml:space="preserve">
+		<value>Süreç Adım Tadilatı Ekle</value>
+	</data>
+
+	<data name="AddProcessStepTemplate" xml:space="preserve">
+		<value>Süreç Adım Şablonu Ekle</value>
+	</data>
+
+	<data name="AddProcessTemplate" xml:space="preserve">
+		<value>Süreç Şablonu Ekle</value>
+	</data>
+
+	<data name="AddProduct" xml:space="preserve">
+		<value>Ürün Ekle</value>
+	</data>
+
+	<data name="AddProductCategory" xml:space="preserve">
+		<value>Ürün Kategorisi Ekle</value>
+	</data>
+
+	<data name="AddPurchaseOrder" xml:space="preserve">
+		<value>Sipariş Ekle</value>
+	</data>
+
+	<data name="AddRemoveAspNetUser" xml:space="preserve">
+		<value>Uygulama Kullanıcısı Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveCompany" xml:space="preserve">
+		<value>Şirket Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveContact" xml:space="preserve">
+		<value>Kişi Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveCountry" xml:space="preserve">
+		<value>Ülke Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveCurrency" xml:space="preserve">
+		<value>Para Birimi Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveCustomer" xml:space="preserve">
+		<value>Müşteri Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveCustomerDepartment" xml:space="preserve">
+		<value>Departmanı Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveEmployee" xml:space="preserve">
+		<value>Çalışan Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveEmployeePosition" xml:space="preserve">
+		<value>İş Pozisyonu Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveFreightTerm" xml:space="preserve">
+		<value>Nakliye Koşulu Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveLicensor" xml:space="preserve">
+		<value>Lisans Sahibi Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveManufacturer" xml:space="preserve">
+		<value>Üretici Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemovePOAttachment" xml:space="preserve">
+		<value>Sipariş Eklentisi Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemovePOImage" xml:space="preserve">
+		<value>Sipariş Resmi Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemovePOShipment" xml:space="preserve">
+		<value>Nakliye Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemovePOSizeRatio" xml:space="preserve">
+		<value>Assorti Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveProcess" xml:space="preserve">
+		<value>Süreç Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveProcessStep" xml:space="preserve">
+		<value>Süreç Adımı Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveProcessStepRevision" xml:space="preserve">
+		<value>Süreç Adım Tadilatı Ekle</value>
+	</data>
+
+	<data name="AddRemoveProcessStepTemplate" xml:space="preserve">
+		<value>Süreç Adım Şablonu Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveProcessTemplate" xml:space="preserve">
+		<value>Süreç Şablonu Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveProduct" xml:space="preserve">
+		<value>Ürün Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveProductCategory" xml:space="preserve">
+		<value>Ürün Kategorisi Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemovePurchaseOrder" xml:space="preserve">
+		<value>Sipariş Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveSizing" xml:space="preserve">
+		<value>Ölçülendirme Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveSizingStandard" xml:space="preserve">
+		<value>Ölçü Standartı Ekle/Çıkar</value>
+	</data>
+
+	<data name="AddRemoveSupplier" xml:space="preserve">
+		<value>Tedarikçi Ekle/Çıkar</value>
+	</data>
+
+	<data name="Address1" xml:space="preserve">
+		<value>Adres Satır 1</value>
+	</data>
+
+	<data name="Address2" xml:space="preserve">
+		<value>Adres Satır 2</value>
+	</data>
+
+	<data name="AddSizing" xml:space="preserve">
+		<value>Ölçülendirme Ekle</value>
+	</data>
+
+	<data name="AddSizingStandard" xml:space="preserve">
+		<value>Ölçü Standartı Ekle</value>
+	</data>
+
+	<data name="AddSupplier" xml:space="preserve">
+		<value>Tedarikçi Ekle</value>
+	</data>
+
+	<data name="AfterSteps" xml:space="preserve">
+		<value>Sonraki Adımlar</value>
+	</data>
+
+	<data name="AppDefault" xml:space="preserve">
+		<value>Uyg.Varsayılanı</value>
+	</data>
+
+	<data name="ApproveDate" xml:space="preserve">
+		<value>Onay Tarihi</value>
+	</data>
+
+	<data name="ApprovedUser" xml:space="preserve">
+		<value>Onaylayan Kullanıcı</value>
+	</data>
+
+	<data name="ApprovedUserId" xml:space="preserve">
+		<value>Onaylayan Kullanıcı</value>
+	</data>
+
+	<data name="ApprovedUserIp" xml:space="preserve">
+		<value>Onaylayanın IP</value>
+	</data>
+
+	<data name="AspNetUser" xml:space="preserve">
+		<value>Uygulama Kullanıcısı</value>
+	</data>
+
+	<data name="AspNetUserId" xml:space="preserve">
+		<value>Uygulama Kullanıcısı</value>
+	</data>
+
+	<data name="AspNetUsers" xml:space="preserve">
+		<value>Uygulama Kullanıcıları</value>
+	</data>
+
+	<data name="AspNetUsersList" xml:space="preserve">
+		<value>Uygulama Kullanıcısı Listesi</value>
+	</data>
+
+	<data name="Attachments" xml:space="preserve">
+		<value>Eklentiler</value>
+	</data>
+
+	<data name="BuyingCurrency" xml:space="preserve">
+		<value>Tedarik Para Birimi</value>
+	</data>
+
+	<data name="BuyingCurrency2" xml:space="preserve">
+		<value>Tedarik Para Birimi 2</value>
+	</data>
+
+	<data name="BuyingCurrency2Id" xml:space="preserve">
+		<value>Tedarik Para Birimi 2</value>
+	</data>
+
+	<data name="BuyingCurrencyId" xml:space="preserve">
+		<value>Tedarik Para Birimi</value>
+	</data>
+
+	<data name="BuyingPrice" xml:space="preserve">
+		<value>Tedarik Fiyatı</value>
+	</data>
+
+	<data name="BuyingPrice2" xml:space="preserve">
+		<value>Tedarik Fiyatı 2</value>
+	</data>
+
+	<data name="CancelDate" xml:space="preserve">
+		<value>İptal Tarihi</value>
+	</data>
+
+	<data name="CancellationReason" xml:space="preserve">
+		<value>İptal Sebebi</value>
+	</data>
+
+	<data name="Cancelled" xml:space="preserve">
+		<value>İptal Edilmiş</value>
+	</data>
+
+	<data name="CancelledUser" xml:space="preserve">
+		<value>İptal Eden Kullanıcı</value>
+	</data>
+
+	<data name="CancelledUserId" xml:space="preserve">
+		<value>İptal Eden Kullanıcı</value>
+	</data>
+
+	<data name="CancelledUserIp" xml:space="preserve">
+		<value>İptal Eden Kullanıcı IP</value>
+	</data>
+
+	<data name="Capacity" xml:space="preserve">
+		<value>Kapasite</value>
+	</data>
+
+	<data name="Caption" xml:space="preserve">
+		<value>Etiket</value>
+	</data>
+
+	<data name="Category" xml:space="preserve">
+		<value>Kategori</value>
+	</data>
+
+	<data name="CategoryCode" xml:space="preserve">
+		<value>Kategori Kodu</value>
+	</data>
+
+	<data name="CategoryId" xml:space="preserve">
+		<value>Kategori</value>
+	</data>
+
+	<data name="CategoryName" xml:space="preserve">
+		<value>Kategori Adı</value>
+	</data>
+
+	<data name="City" xml:space="preserve">
+		<value>Şehir</value>
+	</data>
+
+	<data name="Closed" xml:space="preserve">
+		<value>Kapanmış</value>
+	</data>
+
+	<data name="ClosedUserId" xml:space="preserve">
+		<value>Kapatan Kullanıcı ID</value>
+	</data>
+
+	<data name="ClosedUserIp" xml:space="preserve">
+		<value>Kapatan Kullanıcı IP</value>
+	</data>
+
+	<data name="Colour" xml:space="preserve">
+		<value>Renk</value>
+	</data>
+
+	<data name="Companies" xml:space="preserve">
+		<value>Şirketler</value>
+	</data>
+
+	<data name="CompaniesList" xml:space="preserve">
+		<value>Şirket Listesi</value>
+	</data>
+
+	<data name="Company" xml:space="preserve">
+		<value>Şirket</value>
+	</data>
+
+	<data name="CompanyId" xml:space="preserve">
+		<value>Şirket</value>
+	</data>
+
+	<data name="CompanyName" xml:space="preserve">
+		<value>Şirket İsmi</value>
+	</data>
+
+	<data name="Contact" xml:space="preserve">
+		<value>Kişi</value>
+	</data>
+
+	<data name="Contacts" xml:space="preserve">
+		<value>Kişiler</value>
+	</data>
+
+	<data name="ContactsList" xml:space="preserve">
+		<value>Kişi Listesi</value>
+	</data>
+
+	<data name="Countries" xml:space="preserve">
+		<value>Ülkeler</value>
+	</data>
+
+	<data name="CountriesList" xml:space="preserve">
+		<value>Ülke Listesi</value>
+	</data>
+
+	<data name="Country" xml:space="preserve">
+		<value>Ülke</value>
+	</data>
+
+	<data name="CountryId" xml:space="preserve">
+		<value>Ülke</value>
+	</data>
+
+	<data name="CountryName" xml:space="preserve">
+		<value>Ülke</value>
+	</data>
+
+	<data name="CreateAspNetUser" xml:space="preserve">
+		<value>Uygulama Kullanıcısı Oluştur</value>
+	</data>
+
+	<data name="CreateCompany" xml:space="preserve">
+		<value>Şirket Oluştur</value>
+	</data>
+
+	<data name="CreateContact" xml:space="preserve">
+		<value>Kişi Oluştur</value>
+	</data>
+
+	<data name="CreateCountry" xml:space="preserve">
+		<value>Ülke Oluştur</value>
+	</data>
+
+	<data name="CreateCurrency" xml:space="preserve">
+		<value>Para Birimi Oluştur</value>
+	</data>
+
+	<data name="CreateCustomer" xml:space="preserve">
+		<value>Müşteri Oluştur</value>
+	</data>
+
+	<data name="CreateCustomerDepartment" xml:space="preserve">
+		<value>Müşteri Departmanı Oluştur</value>
+	</data>
+
+	<data name="CreateDate" xml:space="preserve">
+		<value>Oluşturma Tarihi</value>
+	</data>
+
+	<data name="CreatedUser" xml:space="preserve">
+		<value>Oluşturan Kullanıcı</value>
+	</data>
+
+	<data name="CreateEmployee" xml:space="preserve">
+		<value>Çalışan Oluştur</value>
+	</data>
+
+	<data name="CreateEmployeePosition" xml:space="preserve">
+		<value>İş Pozisyonu Oluştur</value>
+	</data>
+
+	<data name="CreateFreightTerm" xml:space="preserve">
+		<value>Nakliye Koşulu Oluştur</value>
+	</data>
+
+	<data name="CreateLicensor" xml:space="preserve">
+		<value>Lisans Sahibi Oluştur</value>
+	</data>
+
+	<data name="CreateManufacturer" xml:space="preserve">
+		<value>Üretici Oluştur</value>
+	</data>
+
+	<data name="CreatePOAttachment" xml:space="preserve">
+		<value>Sipariş Eklentisi Oluştur</value>
+	</data>
+
+	<data name="CreatePOImage" xml:space="preserve">
+		<value>Sipariş Resmi Oluştur</value>
+	</data>
+
+	<data name="CreatePOShipment" xml:space="preserve">
+		<value>Nakliye Oluştur</value>
+	</data>
+
+	<data name="CreatePOSizeRatio" xml:space="preserve">
+		<value>Assorti Oluştur</value>
+	</data>
+
+	<data name="CreateProcess" xml:space="preserve">
+		<value>Süreç Başlat</value>
+	</data>
+
+	<data name="CreateProcessStep" xml:space="preserve">
+		<value>Süreç Adımı Oluştur</value>
+	</data>
+
+	<data name="CreateProcessStepRevision" xml:space="preserve">
+		<value>Süreç Adım Tadilatı Oluştur</value>
+	</data>
+
+	<data name="CreateProcessStepTemplate" xml:space="preserve">
+		<value>Süreç Adım Şablonu Oluştur</value>
+	</data>
+
+	<data name="CreateProcessTemplate" xml:space="preserve">
+		<value>Süreç Şablonu Oluştur</value>
+	</data>
+
+	<data name="CreateProduct" xml:space="preserve">
+		<value>Ürün Oluştur</value>
+	</data>
+
+	<data name="CreateProductCategory" xml:space="preserve">
+		<value>Ürün Kategorisi Oluştur</value>
+	</data>
+
+	<data name="CreatePurchaseOrder" xml:space="preserve">
+		<value>Sipariş Oluştur</value>
+	</data>
+
+	<data name="CreateSizing" xml:space="preserve">
+		<value>Ölçülendirme Oluştur</value>
+	</data>
+
+	<data name="CreateSizingStandard" xml:space="preserve">
+		<value>Ölçü Standartı Oluştur</value>
+	</data>
+
+	<data name="CreateSupplier" xml:space="preserve">
+		<value>Tedarikçi Oluştur</value>
+	</data>
+
+	<data name="CreatorId" xml:space="preserve">
+		<value>Oluşturan</value>
+	</data>
+
+	<data name="CreatorIp" xml:space="preserve">
+		<value>Oluşturan IP</value>
+	</data>
+
+	<data name="Currencies" xml:space="preserve">
+		<value>Para Birimleri</value>
+	</data>
+
+	<data name="CurrenciesList" xml:space="preserve">
+		<value>Para Birimi Listesi</value>
+	</data>
+
+	<data name="Currency" xml:space="preserve">
+		<value>Para Birimi</value>
+	</data>
+
+	<data name="CurrencyCode" xml:space="preserve">
+		<value>Döviz Kodu</value>
+	</data>
+
+	<data name="CurrencyName" xml:space="preserve">
+		<value>Döviz İsmi</value>
+	</data>
+
+	<data name="CurrencySymbol" xml:space="preserve">
+		<value>Döviz Sembolü</value>
+	</data>
+
+	<data name="CurrentStep" xml:space="preserve">
+		<value>Güncel Adım</value>
+	</data>
+
+	<data name="CurrentStepId" xml:space="preserve">
+		<value>Güncel Adım</value>
+	</data>
+
+	<data name="Customer" xml:space="preserve">
+		<value>Müşteri</value>
+	</data>
+
+	<data name="CustomerCode" xml:space="preserve">
+		<value>Müşteri Kodu</value>
+	</data>
+
+	<data name="CustomerDepartment" xml:space="preserve">
+		<value>Müşteri Departmanı</value>
+	</data>
+
+	<data name="CustomerDepartmentId" xml:space="preserve">
+		<value>Müşteri Departmanı</value>
+	</data>
+
+	<data name="CustomerDepartments" xml:space="preserve">
+		<value>Müşteri Departmanları</value>
+	</data>
+
+	<data name="CustomerDepartmentsList" xml:space="preserve">
+		<value>Müşteri Departman Listesi</value>
+	</data>
+
+	<data name="CustomerId" xml:space="preserve">
+		<value>Müşteri</value>
+	</data>
+
+	<data name="CustomerPoNr" xml:space="preserve">
+		<value>Müşterinin Sipariş Kodu</value>
+	</data>
+
+	<data name="CustomerRefNr" xml:space="preserve">
+		<value>Kimball No</value>
+	</data>
+
+	<data name="Customers" xml:space="preserve">
+		<value>Müşteriler</value>
+	</data>
+
+	<data name="CustomersList" xml:space="preserve">
+		<value>Müşteri Listesi</value>
+	</data>
+
+	<data name="DefaultJobPositions" xml:space="preserve">
+		<value>Default Job Positions</value>
+	</data>
+
+	<data name="DefaultTitle" xml:space="preserve">
+		<value>Varsayılan Başlık</value>
+	</data>
+
+	<data name="DeleteAspNetUser" xml:space="preserve">
+		<value>Uygulama Kullanıcısını Sil</value>
+	</data>
+
+	<data name="DeleteCompany" xml:space="preserve">
+		<value>Şirketi Sil</value>
+	</data>
+
+	<data name="DeleteContact" xml:space="preserve">
+		<value>Kişi Sil</value>
+	</data>
+
+	<data name="DeleteCountry" xml:space="preserve">
+		<value>Ülkeyi Sil</value>
+	</data>
+
+	<data name="DeleteCurrency" xml:space="preserve">
+		<value>Para Birimini Sil</value>
+	</data>
+
+	<data name="DeleteCustomer" xml:space="preserve">
+		<value>Müşteri Sil</value>
+	</data>
+
+	<data name="DeleteCustomerDepartment" xml:space="preserve">
+		<value>Departmanı Sil</value>
+	</data>
+
+	<data name="DeleteEmployee" xml:space="preserve">
+		<value>Çalışanı Sil</value>
+	</data>
+
+	<data name="DeleteEmployeePosition" xml:space="preserve">
+		<value>İş Pozisyonunu Sil</value>
+	</data>
+
+	<data name="DeleteFreightTerm" xml:space="preserve">
+		<value>Nakliye Koşulunu Sil</value>
+	</data>
+
+	<data name="DeleteLicensor" xml:space="preserve">
+		<value>Lisans Sahibini Sil</value>
+	</data>
+
+	<data name="DeleteManufacturer" xml:space="preserve">
+		<value>Üreticiyi Sil</value>
+	</data>
+
+	<data name="DeletePOAttachment" xml:space="preserve">
+		<value>Sipariş Eklentisini Sil</value>
+	</data>
+
+	<data name="DeletePOImage" xml:space="preserve">
+		<value>Sipariş Resmini Sil</value>
+	</data>
+
+	<data name="DeletePOShipment" xml:space="preserve">
+		<value>Nakliyeyi Sil</value>
+	</data>
+
+	<data name="DeletePOSizeRatio" xml:space="preserve">
+		<value>Assortiyi Sil</value>
+	</data>
+
+	<data name="DeleteProcess" xml:space="preserve">
+		<value>Süreci Sil</value>
+	</data>
+
+	<data name="DeleteProcessStep" xml:space="preserve">
+		<value>Süreç Adımını Sil</value>
+	</data>
+
+	<data name="DeleteProcessStepRevision" xml:space="preserve">
+		<value>Süreç Adım Tadilatını Sil</value>
+	</data>
+
+	<data name="DeleteProcessStepTemplate" xml:space="preserve">
+		<value>Süreç Adım Şablonunu Sil</value>
+	</data>
+
+	<data name="DeleteProcessTemplate" xml:space="preserve">
+		<value>Süreç Şablonunu Sil</value>
+	</data>
+
+	<data name="DeleteProduct" xml:space="preserve">
+		<value>Ürünü Sil</value>
+	</data>
+
+	<data name="DeleteProductCategory" xml:space="preserve">
+		<value>Ürün Kategorisini Sil</value>
+	</data>
+
+	<data name="DeletePurchaseOrder" xml:space="preserve">
+		<value>Siparişi Sil</value>
+	</data>
+
+	<data name="DeleteSizing" xml:space="preserve">
+		<value>Ölçülendirmeyi Sil</value>
+	</data>
+
+	<data name="DeleteSizingStandard" xml:space="preserve">
+		<value>Ölçü Standartını Sil</value>
+	</data>
+
+	<data name="DeleteSupplier" xml:space="preserve">
+		<value>Tedarikçiyi Sil</value>
+	</data>
+
+	<data name="DeliveryDate" xml:space="preserve">
+		<value>Teslim Tarihi</value>
+	</data>
+
+	<data name="DeliveryNr" xml:space="preserve">
+		<value>Teslimat No</value>
+	</data>
+
+	<data name="DepartmentName" xml:space="preserve">
+		<value>Departman İsmi</value>
+	</data>
+
+	<data name="Departments" xml:space="preserve">
+		<value>Departmanlar</value>
+	</data>
+
+	<data name="DependedStep" xml:space="preserve">
+		<value>Bağlı Adım</value>
+	</data>
+
+	<data name="DependedStepId" xml:space="preserve">
+		<value>Bağlı Adım</value>
+	</data>
+
+	<data name="Description" xml:space="preserve">
+		<value>Açıklama</value>
+	</data>
+
+	<data name="Designer" xml:space="preserve">
+		<value>Tasarımcı</value>
+	</data>
+
+	<data name="DesignerId" xml:space="preserve">
+		<value>Tasarımcı</value>
+	</data>
+
+	<data name="DestinationNr" xml:space="preserve">
+		<value>Destination Nr</value>
+	</data>
+
+	<data name="Discontinued" xml:space="preserve">
+		<value>Sonlandırıldı</value>
+	</data>
+
+	<data name="DiscontinueDate" xml:space="preserve">
+		<value>Sonlandırma Tarihi</value>
+	</data>
+
+	<data name="DiscontinuedUser" xml:space="preserve">
+		<value>Sonlandıran Kullanıcı</value>
+	</data>
+
+	<data name="DiscontinuedUserId" xml:space="preserve">
+		<value>Sonlandıran Kullanıcı</value>
+	</data>
+
+	<data name="DiscontinuedUserIp" xml:space="preserve">
+		<value>Sonlandıran Kullanıcı IP</value>
+	</data>
+
+	<data name="DiscontinueNotes" xml:space="preserve">
+		<value>Sonlandırma Notları</value>
+	</data>
+
+	<data name="DiscountRate" xml:space="preserve">
+		<value>İskonto (%)</value>
+	</data>
+
+	<data name="DisplayOrder" xml:space="preserve">
+		<value>Gösterim Sırası</value>
+	</data>
+
+	<data name="DueDate" xml:space="preserve">
+		<value>Teslim Tarihi</value>
+	</data>
+
+	<data name="EditAspNetUser" xml:space="preserve">
+		<value>Uygulama Kullanıcısını Düzenle</value>
+	</data>
+
+	<data name="EditCompany" xml:space="preserve">
+		<value>Şirketi Düzenle</value>
+	</data>
+
+	<data name="EditContact" xml:space="preserve">
+		<value>Kişiyi Düzenle</value>
+	</data>
+
+	<data name="EditCountry" xml:space="preserve">
+		<value>Ülkeyi Düzenle</value>
+	</data>
+
+	<data name="EditCurrency" xml:space="preserve">
+		<value>Para Birimini Düzenle</value>
+	</data>
+
+	<data name="EditCustomer" xml:space="preserve">
+		<value>Müşteriyi Düzenle</value>
+	</data>
+
+	<data name="EditCustomerDepartment" xml:space="preserve">
+		<value>Departmanı Düzenle</value>
+	</data>
+
+	<data name="EditEmployee" xml:space="preserve">
+		<value>Çalışanı Düzenle</value>
+	</data>
+
+	<data name="EditEmployeePosition" xml:space="preserve">
+		<value>İş Pozisyonunu Düzenle</value>
+	</data>
+
+	<data name="EditFreightTerm" xml:space="preserve">
+		<value>Nakliye Koşulunu Düzenle</value>
+	</data>
+
+	<data name="EditLicensor" xml:space="preserve">
+		<value>Lisans Sahibini Düzenle</value>
+	</data>
+
+	<data name="EditManufacturer" xml:space="preserve">
+		<value>Üreticiyi Düzenle</value>
+	</data>
+
+	<data name="EditPOAttachment" xml:space="preserve">
+		<value>Sipariş Eklentisini Düzenle</value>
+	</data>
+
+	<data name="EditPOImage" xml:space="preserve">
+		<value>Sipariş Resmini Düzenle</value>
+	</data>
+
+	<data name="EditPOShipment" xml:space="preserve">
+		<value>Nakliyeyi Düzenle</value>
+	</data>
+
+	<data name="EditPOSizeRatio" xml:space="preserve">
+		<value>Assortiyi Düzenle</value>
+	</data>
+
+	<data name="EditProcess" xml:space="preserve">
+		<value>Süreci Düzenle</value>
+	</data>
+
+	<data name="EditProcessStep" xml:space="preserve">
+		<value>Süreç Adımı Düzenle</value>
+	</data>
+
+	<data name="EditProcessStepRevision" xml:space="preserve">
+		<value>Süreç Adım Tadilatını Düzenle</value>
+	</data>
+
+	<data name="EditProcessStepTemplate" xml:space="preserve">
+		<value>Süreç Adım Şablonunu Düzenle</value>
+	</data>
+
+	<data name="EditProcessTemplate" xml:space="preserve">
+		<value>Süreç Şablonunu Düzenle</value>
+	</data>
+
+	<data name="EditProduct" xml:space="preserve">
+		<value>Ürünü Düzenle</value>
+	</data>
+
+	<data name="EditProductCategory" xml:space="preserve">
+		<value>Ürün Kategorisini Düzenle</value>
+	</data>
+
+	<data name="EditPurchaseOrder" xml:space="preserve">
+		<value>Siparişi Düzenle</value>
+	</data>
+
+	<data name="EditSizing" xml:space="preserve">
+		<value>Ölçülendirmeyi Düzenle</value>
+	</data>
+
+	<data name="EditSizingStandard" xml:space="preserve">
+		<value>Ölçü Standartını Düzenle</value>
+	</data>
+
+	<data name="EditSupplier" xml:space="preserve">
+		<value>Tedarikçiyi Düzenle</value>
+	</data>
+
+	<data name="Email" xml:space="preserve">
+		<value>E-Posta</value>
+	</data>
+
+	<data name="EmailHome" xml:space="preserve">
+		<value>E-Posta Ev</value>
+	</data>
+
+	<data name="EmailWork" xml:space="preserve">
+		<value>E-Posta İş</value>
+	</data>
+
+	<data name="Employee" xml:space="preserve">
+		<value>Çalışan</value>
+	</data>
+
+	<data name="EmployeePosition" xml:space="preserve">
+		<value>İş Pozisyonu</value>
+	</data>
+
+	<data name="EmployeePositions" xml:space="preserve">
+		<value>İş Pozisyonları</value>
+	</data>
+
+	<data name="EmployeePositionsList" xml:space="preserve">
+		<value>İş Pozisyonu Listesi</value>
+	</data>
+
+	<data name="Employees" xml:space="preserve">
+		<value>Çalışanlar</value>
+	</data>
+
+	<data name="EmployeesList" xml:space="preserve">
+		<value>Çalışan Listesi</value>
+	</data>
+
+	<data name="FabricComposition" xml:space="preserve">
+		<value>Kumaş İçeriği</value>
+	</data>
+
+	<data name="FileName" xml:space="preserve">
+		<value>Dosya Adı</value>
+	</data>
+
+	<data name="FileTitle" xml:space="preserve">
+		<value>Dosya Başlığı</value>
+	</data>
+
+	<data name="FileType" xml:space="preserve">
+		<value>Dosya Türü</value>
+	</data>
+
+	<data name="FileUrl" xml:space="preserve">
+		<value>Dosya Yolu</value>
+	</data>
+
+	<data name="FirstName" xml:space="preserve">
+		<value>Ad</value>
+	</data>
+
+	<data name="ForecastDate" xml:space="preserve">
+		<value>Öngörülen Tarih</value>
+	</data>
+
+	<data name="FreightTerm" xml:space="preserve">
+		<value>Nakliye Koşulu</value>
+	</data>
+
+	<data name="FreightTermId" xml:space="preserve">
+		<value>Nakliye Koşulu</value>
+	</data>
+
+	<data name="FreightTerms" xml:space="preserve">
+		<value>Nakliye Koşulları</value>
+	</data>
+
+	<data name="FreightTermsList" xml:space="preserve">
+		<value>Nakliye Koşul Listesi</value>
+	</data>
+
+	<data name="HangerSticker" xml:space="preserve">
+		<value>Askı Sticker</value>
+	</data>
+
+	<data name="Id" xml:space="preserve">
+		<value>Kayıt No</value>
+	</data>
+
+	<data name="IgnoreInRepeat" xml:space="preserve">
+		<value>Tekrarda Görme</value>
+	</data>
+
+	<data name="Images" xml:space="preserve">
+		<value>Resimler</value>
+	</data>
+
+	<data name="ImageTitle" xml:space="preserve">
+		<value>Resim Başlığı</value>
+	</data>
+
+	<data name="ImageUrl" xml:space="preserve">
+		<value>Resim Yolu</value>
+	</data>
+
+	<data name="InactivateDate" xml:space="preserve">
+		<value>İnaktif Tarihi</value>
+	</data>
+
+	<data name="IncotermCode" xml:space="preserve">
+		<value>Incoterms Kodu</value>
+	</data>
+
+	<data name="InitialComments" xml:space="preserve">
+		<value>Başlangıç Yorumları</value>
+	</data>
+
+	<data name="IsActive" xml:space="preserve">
+		<value>Aktif</value>
+	</data>
+
+	<data name="IsApproved" xml:space="preserve">
+		<value>Onaylandı</value>
+	</data>
+
+	<data name="IsCompleted" xml:space="preserve">
+		<value>Bitti</value>
+	</data>
+
+	<data name="IsDelivered" xml:space="preserve">
+		<value>Teslim Edildi</value>
+	</data>
+
+	<data name="IsPublished" xml:space="preserve">
+		<value>Yayında</value>
+	</data>
+
+	<data name="IsRepeat" xml:space="preserve">
+		<value>Tekrar</value>
+	</data>
+
+	<data name="IsShipped" xml:space="preserve">
+		<value>Yola Çıktı</value>
+	</data>
+
+	<data name="Labelling" xml:space="preserve">
+		<value>Karton Etiket</value>
+	</data>
+
+	<data name="LastName" xml:space="preserve">
+		<value>Soyad</value>
+	</data>
+
+	<data name="Licensed" xml:space="preserve">
+		<value>Lisanslı</value>
+	</data>
+
+	<data name="Licensor" xml:space="preserve">
+		<value>Lisans Sahibi</value>
+	</data>
+
+	<data name="LicensorCode" xml:space="preserve">
+		<value>Lisans Sahibi Kodu</value>
+	</data>
+
+	<data name="LicensorCurrency" xml:space="preserve">
+		<value>Lisans Sahibi Para Birimi</value>
+	</data>
+
+	<data name="LicensorCurrencyId" xml:space="preserve">
+		<value>Lisans Sahibi Para Birimi</value>
+	</data>
+
+	<data name="LicensorId" xml:space="preserve">
+		<value>Lisans Sahibi</value>
+	</data>
+
+	<data name="LicensorPrice" xml:space="preserve">
+		<value>Lisans Sahibi Fiyatı (Net)</value>
+	</data>
+
+	<data name="Licensors" xml:space="preserve">
+		<value>Lisans Sahipleri</value>
+	</data>
+
+	<data name="LicensorsList" xml:space="preserve">
+		<value>Lisans Sahibi Listesi</value>
+	</data>
+
+	<data name="LockoutEnabled" xml:space="preserve">
+		<value>Hesap Kilitleme Açık</value>
+	</data>
+
+	<data name="LockoutEndDateUtc" xml:space="preserve">
+		<value>Hesap Kilidi Sonlanma Tarihi</value>
+	</data>
+
+	<data name="Manufacturer" xml:space="preserve">
+		<value>Üretici</value>
+	</data>
+
+	<data name="ManufacturerCode" xml:space="preserve">
+		<value>Üretici Kodu</value>
+	</data>
+
+	<data name="Manufacturers" xml:space="preserve">
+		<value>Üreticiler</value>
+	</data>
+
+	<data name="ManufacturersList" xml:space="preserve">
+		<value>Üretici Listesi</value>
+	</data>
+
+	<data name="Merchandiser" xml:space="preserve">
+		<value>Satış Temsilcisi</value>
+	</data>
+
+	<data name="Merchandiser1" xml:space="preserve">
+		<value>Satış Temsilcisi 1</value>
+	</data>
+
+	<data name="Merchandiser1Id" xml:space="preserve">
+		<value>Satış Temsilcisi 1</value>
+	</data>
+
+	<data name="Merchandiser2" xml:space="preserve">
+		<value>Satış Temsilcisi 2</value>
+	</data>
+
+	<data name="Merchandiser2Id" xml:space="preserve">
+		<value>Satış Temsilcisi 2</value>
+	</data>
+
+	<data name="ModifiedUser" xml:space="preserve">
+		<value>Düzenleyen Kullanıcı</value>
+	</data>
+
+	<data name="ModifierId" xml:space="preserve">
+		<value>Değiştiren</value>
+	</data>
+
+	<data name="ModifierIp" xml:space="preserve">
+		<value>Değiştiren IP</value>
+	</data>
+
+	<data name="ModifyDate" xml:space="preserve">
+		<value>Değişiklik Tarihi</value>
+	</data>
+
+	<data name="ModifyNr" xml:space="preserve">
+		<value>Değişiklik No</value>
+	</data>
+
+	<data name="Notes" xml:space="preserve">
+		<value>Notlar</value>
+	</data>
+
+	<data name="NumericIsoCode" xml:space="preserve">
+		<value>Sayısal ISO Kod</value>
+	</data>
+
+	<data name="OrderDate" xml:space="preserve">
+		<value>Sipariş Tarihi</value>
+	</data>
+
+	<data name="Orders" xml:space="preserve">
+		<value>Siparişler</value>
+	</data>
+
+	<data name="ParentCategory" xml:space="preserve">
+		<value>Üst Kategori</value>
+	</data>
+
+	<data name="ParentCategoryId" xml:space="preserve">
+		<value>Üst Kategori</value>
+	</data>
+
+	<data name="ParentPo" xml:space="preserve">
+		<value>Bağlı Sipariş</value>
+	</data>
+
+	<data name="ParentPoId" xml:space="preserve">
+		<value>Bağlı Sipariş</value>
+	</data>
+
+	<data name="Phone1" xml:space="preserve">
+		<value>Telefon 1</value>
+	</data>
+
+	<data name="Phone2" xml:space="preserve">
+		<value>Telefon 2</value>
+	</data>
+
+	<data name="Phone3" xml:space="preserve">
+		<value>Telefon 3</value>
+	</data>
+
+	<data name="PhoneMobile" xml:space="preserve">
+		<value>Mobil Telefon</value>
+	</data>
+
+	<data name="PhoneNumber" xml:space="preserve">
+		<value>Telefon Numarası</value>
+	</data>
+
+	<data name="PhoneNumberConfirmed" xml:space="preserve">
+		<value>Telefon Numarası Doğrulandı</value>
+	</data>
+
+	<data name="PhoneWork1" xml:space="preserve">
+		<value>İş Telefonu 1</value>
+	</data>
+
+	<data name="PhoneWork2" xml:space="preserve">
+		<value>İş Telefonu 2</value>
+	</data>
+
+	<data name="POAttachment" xml:space="preserve">
+		<value>Sipariş Eklentisi</value>
+	</data>
+
+	<data name="POAttachments" xml:space="preserve">
+		<value>Sipariş Eklentileri</value>
+	</data>
+
+	<data name="POAttachmentsList" xml:space="preserve">
+		<value>Sipariş Eklenti Listesi</value>
+	</data>
+
+	<data name="POImage" xml:space="preserve">
+		<value>Sipariş Resmi</value>
+	</data>
+
+	<data name="POImages" xml:space="preserve">
+		<value>Sipariş Resimleri</value>
+	</data>
+
+	<data name="POImagesList" xml:space="preserve">
+		<value>Sipariş Resim Listesi</value>
+	</data>
+
+	<data name="PoNr" xml:space="preserve">
+		<value>Sipariş Kodu</value>
+	</data>
+
+	<data name="POShipment" xml:space="preserve">
+		<value>Nakliye</value>
+	</data>
+
+	<data name="POShipments" xml:space="preserve">
+		<value>Nakliyeler</value>
+	</data>
+
+	<data name="POShipmentsList" xml:space="preserve">
+		<value>Nakliye Listesi</value>
+	</data>
+
+	<data name="Position" xml:space="preserve">
+		<value>Pozisyon</value>
+	</data>
+
+	<data name="PositionId" xml:space="preserve">
+		<value>Pozisyon</value>
+	</data>
+
+	<data name="POSizeRatio" xml:space="preserve">
+		<value>Assorti</value>
+	</data>
+
+	<data name="POSizeRatios" xml:space="preserve">
+		<value>Assortiler</value>
+	</data>
+
+	<data name="POSizeRatiosList" xml:space="preserve">
+		<value>Assorti Listesi</value>
+	</data>
+
+	<data name="Print" xml:space="preserve">
+		<value>Yazdır</value>
+	</data>
+
+	<data name="Process" xml:space="preserve">
+		<value>Süreç</value>
+	</data>
+
+	<data name="Processes" xml:space="preserve">
+		<value>Süreçler</value>
+	</data>
+
+	<data name="ProcessesList" xml:space="preserve">
+		<value>Süreç Listesi</value>
+	</data>
+
+	<data name="ProcessId" xml:space="preserve">
+		<value>Süreç</value>
+	</data>
+
+	<data name="ProcessStep" xml:space="preserve">
+		<value>Süreç Adımı</value>
+	</data>
+
+	<data name="ProcessStepId" xml:space="preserve">
+		<value>Süreç Adımı</value>
+	</data>
+
+	<data name="ProcessStepRevision" xml:space="preserve">
+		<value>Süreç Adım Tadilatı</value>
+	</data>
+
+	<data name="ProcessStepRevisions" xml:space="preserve">
+		<value>Süreç Adım Tadilatları</value>
+	</data>
+
+	<data name="ProcessStepRevisionsList" xml:space="preserve">
+		<value>Süreç Adım Tadilat Listesi</value>
+	</data>
+
+	<data name="ProcessSteps" xml:space="preserve">
+		<value>Süreç Adımları</value>
+	</data>
+
+	<data name="ProcessStepsList" xml:space="preserve">
+		<value>Süreç Adım Listesi</value>
+	</data>
+
+	<data name="ProcessStepTemplate" xml:space="preserve">
+		<value>Süreç Adım Şablonu</value>
+	</data>
+
+	<data name="ProcessStepTemplates" xml:space="preserve">
+		<value>Süreç Adım Şablonları</value>
+	</data>
+
+	<data name="ProcessStepTemplatesList" xml:space="preserve">
+		<value>Süreç Adım Şablon Listesi</value>
+	</data>
+
+	<data name="ProcessTemplate" xml:space="preserve">
+		<value>Süreç Şablonu</value>
+	</data>
+
+	<data name="ProcessTemplateId" xml:space="preserve">
+		<value>Süreç Şablonu</value>
+	</data>
+
+	<data name="ProcessTemplates" xml:space="preserve">
+		<value>Süreç Şablonları</value>
+	</data>
+
+	<data name="ProcessTemplatesList" xml:space="preserve">
+		<value>Süreç Şablon Listesi</value>
+	</data>
+
+	<data name="Product" xml:space="preserve">
+		<value>Ürün</value>
+	</data>
+
+	<data name="ProductCategories" xml:space="preserve">
+		<value>Ürün Kategorileri</value>
+	</data>
+
+	<data name="ProductCategoriesList" xml:space="preserve">
+		<value>Ürün Kategori Listesi</value>
+	</data>
+
+	<data name="ProductCategory" xml:space="preserve">
+		<value>Ürün Kategorisi</value>
+	</data>
+
+	<data name="ProductCode" xml:space="preserve">
+		<value>Ürün Kodu</value>
+	</data>
+
+	<data name="ProductId" xml:space="preserve">
+		<value>Ürün</value>
+	</data>
+
+	<data name="Products" xml:space="preserve">
+		<value>Ürünler</value>
+	</data>
+
+	<data name="ProductsList" xml:space="preserve">
+		<value>Ürün Listesi</value>
+	</data>
+
+	<data name="PurchaseOrder" xml:space="preserve">
+		<value>Sipariş</value>
+	</data>
+
+	<data name="PurchaseOrderId" xml:space="preserve">
+		<value>Sipariş</value>
+	</data>
+
+	<data name="PurchaseOrders" xml:space="preserve">
+		<value>Siparişler</value>
+	</data>
+
+	<data name="PurchaseOrdersList" xml:space="preserve">
+		<value>Sipariş Listesi</value>
+	</data>
+
+	<data name="Quantity" xml:space="preserve">
+		<value>Miktar</value>
+	</data>
+
+	<data name="Rate" xml:space="preserve">
+		<value>Oran</value>
+	</data>
+
+	<data name="RealizedDate" xml:space="preserve">
+		<value>Gerçekleşme Tarihi</value>
+	</data>
+
+	<data name="RefCode" xml:space="preserve">
+		<value>Westend No</value>
+	</data>
+
+	<data name="RemoveAspNetUser" xml:space="preserve">
+		<value>Uygulama Kullanıcısını Çıkar</value>
+	</data>
+
+	<data name="RemoveCompany" xml:space="preserve">
+		<value>Şirketi Çıkar</value>
+	</data>
+
+	<data name="RemoveContact" xml:space="preserve">
+		<value>Kişiyi Çıkar</value>
+	</data>
+
+	<data name="RemoveCountry" xml:space="preserve">
+		<value>Ülkeyi Çıkar</value>
+	</data>
+
+	<data name="RemoveCurrency" xml:space="preserve">
+		<value>Para Birimini Çıkar</value>
+	</data>
+
+	<data name="RemoveCustomer" xml:space="preserve">
+		<value>Müşteriyi Çıkar</value>
+	</data>
+
+	<data name="RemoveCustomerDepartment" xml:space="preserve">
+		<value>Departmanı Çıkar</value>
+	</data>
+
+	<data name="RemoveEmployee" xml:space="preserve">
+		<value>Çalışanı Çıkar</value>
+	</data>
+
+	<data name="RemoveEmployeePosition" xml:space="preserve">
+		<value>İş Pozisyonunu Çıkar</value>
+	</data>
+
+	<data name="RemoveFreightTerm" xml:space="preserve">
+		<value>Nakliye Koşulunu Çıkar</value>
+	</data>
+
+	<data name="RemoveLicensor" xml:space="preserve">
+		<value>Lisans Sahibini Çıkar</value>
+	</data>
+
+	<data name="RemoveManufacturer" xml:space="preserve">
+		<value>Üreticiyi Çıkar</value>
+	</data>
+
+	<data name="RemovePOAttachment" xml:space="preserve">
+		<value>Sipariş Eklentisini Çıkar</value>
+	</data>
+
+	<data name="RemovePOImage" xml:space="preserve">
+		<value>Sipariş Resmini Çıkar</value>
+	</data>
+
+	<data name="RemovePOShipment" xml:space="preserve">
+		<value>Nakliyeyi Çıkar</value>
+	</data>
+
+	<data name="RemovePOSizeRatio" xml:space="preserve">
+		<value>Assortiyi Çıkar</value>
+	</data>
+
+	<data name="RemoveProcess" xml:space="preserve">
+		<value>Süreci Çıkar</value>
+	</data>
+
+	<data name="RemoveProcessStep" xml:space="preserve">
+		<value>Süreç Adımını Çıkar</value>
+	</data>
+
+	<data name="RemoveProcessStepRevision" xml:space="preserve">
+		<value>Süreç Adım Tadilatını Çıkar</value>
+	</data>
+
+	<data name="RemoveProcessStepTemplate" xml:space="preserve">
+		<value>Süreç Adım Şablonunu Çıkar</value>
+	</data>
+
+	<data name="RemoveProcessTemplate" xml:space="preserve">
+		<value>Süreç Şablonunu Çıkar</value>
+	</data>
+
+	<data name="RemoveProduct" xml:space="preserve">
+		<value>Ürünü Çıkar</value>
+	</data>
+
+	<data name="RemoveProductCategory" xml:space="preserve">
+		<value>Ürün Kategorisini Çıkar</value>
+	</data>
+
+	<data name="RemovePurchaseOrder" xml:space="preserve">
+		<value>Siparişi Çıkar</value>
+	</data>
+
+	<data name="RemoveSizing" xml:space="preserve">
+		<value>Ölçülendirmeyi Çıkar</value>
+	</data>
+
+	<data name="RemoveSizingStandard" xml:space="preserve">
+		<value>Ölçü Standartını Çıkar</value>
+	</data>
+
+	<data name="RemoveSupplier" xml:space="preserve">
+		<value>Tedarikçiyi Çıkar</value>
+	</data>
+
+	<data name="ReqDaysBeforeDueDate" xml:space="preserve">
+		<value>Teslimat Öncesi Gerekli Gün</value>
+	</data>
+
+	<data name="RequiredWorkDays" xml:space="preserve">
+		<value>Gereken İş Günü</value>
+	</data>
+
+	<data name="RetailCurrency" xml:space="preserve">
+		<value>Perakende Para Birimi</value>
+	</data>
+
+	<data name="RetailCurrencyId" xml:space="preserve">
+		<value>Perakende Para Birimi</value>
+	</data>
+
+	<data name="RetailPrice" xml:space="preserve">
+		<value>Perakende Fiyatı</value>
+	</data>
+
+	<data name="Revisions" xml:space="preserve">
+		<value>Tadilatlar</value>
+	</data>
+
+	<data name="RoyaltyCurrency" xml:space="preserve">
+		<value>Telif Para Birimi</value>
+	</data>
+
+	<data name="RoyaltyCurrencyId" xml:space="preserve">
+		<value>Telif Para Birimi</value>
+	</data>
+
+	<data name="RoyaltyFee" xml:space="preserve">
+		<value>Telif Ücreti</value>
+	</data>
+
+	<data name="SellingCurrency" xml:space="preserve">
+		<value>Satış Para Birimi</value>
+	</data>
+
+	<data name="SellingCurrency2" xml:space="preserve">
+		<value>Satış Para Birimi 2</value>
+	</data>
+
+	<data name="SellingCurrency2Id" xml:space="preserve">
+		<value>Satış Para Birimi 2</value>
+	</data>
+
+	<data name="SellingCurrencyId" xml:space="preserve">
+		<value>Satış Para Birimi</value>
+	</data>
+
+	<data name="ShipmentHangingFolded" xml:space="preserve">
+		<value>Nakliye Askıda / Katlanmış</value>
+	</data>
+
+	<data name="Shipments" xml:space="preserve">
+		<value>Nakliyeler</value>
+	</data>
+
+	<data name="ShippingDate" xml:space="preserve">
+		<value>Nakliye Tarihi</value>
+	</data>
+
+	<data name="ShippingNr" xml:space="preserve">
+		<value>Nakliye No</value>
+	</data>
+
+	<data name="SizeRatioDivisor" xml:space="preserve">
+		<value>Assorti Paydası</value>
+	</data>
+
+	<data name="SizeRatios" xml:space="preserve">
+		<value>Assortiler</value>
+	</data>
+
+	<data name="Sizing" xml:space="preserve">
+		<value>Ölçülendirme</value>
+	</data>
+
+	<data name="Sizings" xml:space="preserve">
+		<value>Ölçülendirmeler</value>
+	</data>
+
+	<data name="SizingsList" xml:space="preserve">
+		<value>Ölçülendirme Listesi</value>
+	</data>
+
+	<data name="SizingStandard" xml:space="preserve">
+		<value>Ölçü Standartı</value>
+	</data>
+
+	<data name="SizingStandardId" xml:space="preserve">
+		<value>Ölçü Standartı</value>
+	</data>
+
+	<data name="SizingStandards" xml:space="preserve">
+		<value>Ölçü Standartları</value>
+	</data>
+
+	<data name="SizingStandardsList" xml:space="preserve">
+		<value>Ölçü Standartlar Listesi</value>
+	</data>
+
+	<data name="StartDate" xml:space="preserve">
+		<value>Başlama Tarihi</value>
+	</data>
+
+	<data name="State" xml:space="preserve">
+		<value>Eyalet</value>
+	</data>
+
+	<data name="StepTemplates" xml:space="preserve">
+		<value>Adım Şablonları</value>
+	</data>
+
+	<data name="SubCategories" xml:space="preserve">
+		<value>Alt Kategoriler</value>
+	</data>
+
+	<data name="Supplier" xml:space="preserve">
+		<value>Tedarikçi</value>
+	</data>
+
+	<data name="SupplierCode" xml:space="preserve">
+		<value>Tedarikçi Kodu</value>
+	</data>
+
+	<data name="SupplierDueDate" xml:space="preserve">
+		<value>Tedarikçi Teslim Tarihi</value>
+	</data>
+
+	<data name="SupplierId" xml:space="preserve">
+		<value>Tedarikçi</value>
+	</data>
+
+	<data name="Suppliers" xml:space="preserve">
+		<value>Tedarikçiler</value>
+	</data>
+
+	<data name="SuppliersList" xml:space="preserve">
+		<value>Tedarikçi Listesi</value>
+	</data>
+
+	<data name="TargetDate" xml:space="preserve">
+		<value>Hedeflenen Tarih</value>
+	</data>
+
+	<data name="Template" xml:space="preserve">
+		<value>Şablon</value>
+	</data>
+
+	<data name="TemplateId" xml:space="preserve">
+		<value>Şablon</value>
+	</data>
+
+	<data name="TemplateName" xml:space="preserve">
+		<value>Şablon İsmi</value>
+	</data>
+
+	<data name="ThreeLetterIsoCode" xml:space="preserve">
+		<value>Üç Harf ISO Kod</value>
+	</data>
+
+	<data name="Title" xml:space="preserve">
+		<value>Başlık</value>
+	</data>
+
+	<data name="TwoFactorEnabled" xml:space="preserve">
+		<value>İki Öğeli Kimlik Doğrulama  </value>
+	</data>
+
+	<data name="TwoLetterIsoCode" xml:space="preserve">
+		<value>İki Harf ISO Kod</value>
+	</data>
+
+	<data name="UnitPrice" xml:space="preserve">
+		<value>Birim (Brüt) Fiyat</value>
+	</data>
+
+	<data name="UnitPrice2" xml:space="preserve">
+		<value>Birim (Brüt) Fiyat 2</value>
+	</data>
+
+	<data name="UserName" xml:space="preserve">
+		<value>Kullanıcı Adı</value>
+	</data>
+
+	<data name="WashingInstructions" xml:space="preserve">
+		<value>Yıkama Talimatı</value>
+	</data>
+
+	<data name="WovenLabel" xml:space="preserve">
+		<value>Ense Etiket</value>
+	</data>
+
+	<data name="ZipCode" xml:space="preserve">
+		<value>Posta Kodu</value>
+	</data>
+</root>

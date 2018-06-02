@@ -1,0 +1,160 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model Process
+@{
+    ViewBag.Title = EntityStrings.Process;
+
+    //Authorization Flags
+    bool canUserEdit = ViewBag.canUserEdit;
+    bool canUserCreate = ViewBag.canUserCreate;
+    bool canUserDelete = ViewBag.canUserDelete;
+}
+
+<h2>@EntityStrings.Process @ActionStrings.Details</h2>
+
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.PurchaseOrder)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.PurchaseOrder)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.IsApproved)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.IsApproved)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ApproveDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ApproveDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.Cancelled)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.Cancelled)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.Description)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.Description)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.IsCompleted)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.IsCompleted)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ProcessTemplate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ProcessTemplate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.TargetDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.TargetDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ForecastDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ForecastDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.RealizedDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.RealizedDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ProcessSteps)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ProcessSteps)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.CancelDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.CancelDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.CancellationReason)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.CancellationReason)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.CancelledUserIp)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.CancelledUserIp)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.CancelledUser)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.CancelledUser)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ApprovedUser)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ApprovedUser)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ModifiedUser)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ModifiedUser)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.CreatedUser)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.CreatedUser)
+    </div>
+</div>
+@Html.Partial("_DetailFormButtonsPartial")

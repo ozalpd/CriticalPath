@@ -1,0 +1,15 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model PurchaseOrderEditVM
+@{
+    ViewBag.Title = EntityStrings.EditPurchaseOrder;
+}
+<h2 class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3">@ViewBag.Title</h2>
+@Html.Partial("_Edit")
+@Html.Partial("_MessageBoxPartial")
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Html.Partial("_IndexScriptsPartial", "PurchaseOrders")
+}

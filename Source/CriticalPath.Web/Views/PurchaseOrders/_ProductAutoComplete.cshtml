@@ -1,0 +1,119 @@
+﻿@using CP.i8n
+@using CriticalPath.Web.Models
+@model PurchaseOrderCreateVM
+@{
+    Layout = null;
+}
+<div class="form-group">
+    @Html.LabelFor(m => m.ProductCode, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3" })
+    <div class="col-lg-5 col-md-6 col-sm-7">
+        @Html.EditorFor(m => m.ProductCode, new
+   {
+       htmlAttributes = new
+       {
+           @class = "form-control ui-autocomplete-input",
+           autocomplete = "off",
+           data_url = Url.Action("GetProductsWithPrice", "Products")
+       }
+   })
+        @Html.HiddenFor(m => m.ProductId)
+        @Html.ValidationMessageFor(m => m.ProductId, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(m => m.ProductCode, "", new { @class = "text-danger" })
+    </div>
+</div>
+<script type="text/javascript">
+    var showSecondaryPrices = @Json.Encode(AppSettings.Settings.ShowSecondaryPrices);
+    var showRetailPrice = @Json.Encode(AppSettings.Settings.ShowRetailPrice);
+
+    $('#ProductCode').autocomplete({
+        minLenght: 1,
+        delay: 500,
+        source: function (request, response) {
+            var url = $(this.element).data('url');
+            $.getJSON(url, { searchString: request.term, pageSize: 20 }, function (data) {
+                response(data);
+            });
+        },
+        select: function (event, ui) {
+            var productId = ui.item.id;
+            $('#ProductId').val(productId);
+
+            $('#UnitPrice').val(fixDecimalVal(ui.item.UnitPrice));
+            setSelectListID('#SellingCurrencyId > option', ui.item.SellingCurrencyId);
+
+            $('#LicensorPrice').val(fixDecimalVal(ui.item.LicensorPrice));
+            setSelectListID('#LicensorCurrencyId > option', ui.item.LicensorCurrencyId);
+
+            $('#BuyingPrice').val(fixDecimalVal(ui.item.BuyingPrice));
+            setSelectListID('#BuyingCurrencyId > option', ui.item.BuyingCurrencyId);
+
+            $('#RoyaltyFee').val(fixDecimalVal(ui.item.RoyaltyFee));
+            setSelectListID('#RoyaltyCurrencyId > option', ui.item.RoyaltyCurrencyId);
+
+            if(showRetailPrice){
+                $('#RetailPrice').val(fixDecimalVal(ui.item.RetailPrice));
+                setSelectListID('#RetailCurrencyId > option', ui.item.RetailCurrencyId);
+            }
+            if(showSecondaryPrices){
+                $('#UnitPrice2').val(fixDecimalVal(ui.item.UnitPrice2));
+                setSelectListID('#SellingCurrency2Id > option', ui.item.SellingCurrency2Id);
+                $('#BuyingPrice2').val(fixDecimalVal(ui.item.BuyingPrice2));
+                setSelectListID('#BuyingCurrency2Id > option', ui.item.BuyingCurrency2Id);
+            }
+
+            $('#Description').val(ui.item.Description);
+
+            if (productId != null && productId != '') {
+                $.getJSON('/Suppliers/GetSupplierList', { productId: productId, pageSize: 100 }, function (suppliers) {
+                    var targetSelect = $('#SupplierId');
+                    targetSelect.empty();
+                    targetSelect.append($('<option/>', {
+                        value: '',
+                        text: '@Html.Raw(ActionStrings.SelectPlease)'
+                    }));
+                    $.each(suppliers, function (index, supplier) {
+                        targetSelect.append($('<option/>', {
+                            value: supplier.Id,
+                            text: supplier.CompanyName
+                        }));
+                    });
+                });
+            }
+        },
+        change: function (event, ui) {
+            if (ui.item==null) {
+                $(event.target).val('');
+                $('#ProductId').val('');
+                $('#UnitPrice').val('');
+                $('#LicensorPrice').val('');
+                $('#BuyingPrice').val('');
+                $('#RoyaltyFee').val('');
+                $('#Description').val('');
+
+                setSelectListID('#SellingCurrencyId > option', 0);
+                setSelectListID('#LicensorCurrencyId > option', 0);
+                setSelectListID('#BuyingCurrencyId > option', 0);
+                setSelectListID('#RoyaltyCurrencyId > option', 0);
+
+                if(showRetailPrice){
+                    $('#RetailPrice').val('');
+                    setSelectListID('#RetailCurrencyId > option', 0);
+                }
+                if(showSecondaryPrices){
+                    $('#UnitPrice2').val('');
+                    $('#BuyingPrice2').val('');
+
+                    setSelectListID('#BuyingCurrency2Id > option', 0);
+                    setSelectListID('#SellingCurrency2Id > option', 0);
+                }
+            }
+        },
+        open: function (event, ui) {
+            var boxWidth = $('#ProductCode').outerWidth();
+            var minWidth = 300;
+            $(this).autocomplete("widget")
+                .css({ "width": (boxWidth > minWidth ? boxWidth : minWidth) })
+                .addClass('fontSize80pc');
+        }
+    });
+</script>

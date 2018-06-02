@@ -1,0 +1,68 @@
+﻿@using OzzIdentity.Models
+@using CP.i8n
+@using CriticalPath.Web.Areas.Admin.Models
+@model IEnumerable<UserAdminVM>
+@{
+    ViewBag.Title = "Users";
+    //Records & Pager
+    int page = ViewBag.page;
+    int totalCount = ViewBag.totalCount;
+    int pageSize = ViewBag.pageSize;
+    int pageCount = ViewBag.pageCount;
+}
+<div class="row well">
+    <div class="col-md-8 col-sm-7">
+        <h4>Users</h4>
+    </div>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "searchForm" }))
+    {
+        @Html.Hidden("page", page)
+        @Html.Hidden("pageSize", pageSize)
+        <div class="col-md-4 col-sm-5">
+            @Html.Partial("_SearchBoxPartial")
+        </div>
+    }
+</div>
+
+<table class="table table-hover">
+    <tr>
+        <th>@ActionStrings.Action</th>
+        <th>@Html.DisplayNameFor(model => model.UserName)</th>
+        <th>@CommonStrings.FullName</th>
+        <th>@Html.DisplayNameFor(model => model.Email)</th>
+        <th>@Html.DisplayNameFor(model => model.IsUserAdmin)</th>
+        <th>@Html.DisplayNameFor(model => model.IsUserSupervisor)</th>
+        <th>@Html.DisplayNameFor(model => model.IsUserClerk)</th>
+        <th>@Html.DisplayNameFor(model => model.IsUserObserver)</th>
+        <th>@Html.DisplayNameFor(model => model.IsUserSupplier)</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div class="btn-group">
+                    <button type="button" title="@ActionStrings.Action" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-tasks"></span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink(ActionStrings.Details, "Details", new { id = item.Id })</li>
+                        <li>@Html.ActionLink(ActionStrings.Edit, "Edit", new { id = item.Id })</li>
+                    </ul>
+                </div>
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+            <td>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsUserAdmin)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsUserSupervisor)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsUserClerk)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsUserObserver)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsUserSupplier)</td>
+        </tr>
+    }
+</table>
+@Html.Partial("_PagerPartial")
+
+@section scripts{
+    @Html.Partial("_IndexScriptsPartial", "Users")
+}

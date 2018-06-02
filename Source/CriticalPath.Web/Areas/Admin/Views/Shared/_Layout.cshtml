@@ -1,0 +1,89 @@
+﻿@using CP.i8n
+@using CriticalPath.Web.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Critical Path Admin Panel</title>
+    @Styles.Render(AppSettings.Settings.SelectedTheme)
+    @Styles.Render("~/css/ag-grid")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(CommonStrings.Home, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            @EntityStrings.Countries<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink(EntityStrings.Countries, "Index", "Countries")</li>
+                            <li>@Html.ActionLink(EntityStrings.CreateCountry, "Create", "Countries")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink(EntityStrings.Currencies, "Index", "Currencies")</li>
+                            <li>@Html.ActionLink(EntityStrings.CreateCurrency, "Create", "Currencies")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            @CommonStrings.Settings<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink(EntityStrings.SizingStandards, "Index", "SizingStandards")</li>
+                            <li>@Html.ActionLink(EntityStrings.CreateSizingStandard, "Create", "SizingStandards")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink(EntityStrings.ProcessTemplates, "Index", "ProcessTemplates")</li>
+                            <li>@Html.ActionLink(EntityStrings.CreateProcessTemplate, "Create", "ProcessTemplates")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink(EntityStrings.FreightTerms, "Index", "FreightTerms")</li>
+                            <li>@Html.ActionLink(EntityStrings.CreateFreightTerm, "Create", "FreightTerms")</li>
+                            <li class="divider"></li>
+                            <li><a href="#">@CommonStrings.ApplicationSettings</a></li>
+                            <li>@Html.ActionLink(CommonStrings.Setup, "Index", "Setup")</li>
+                            <li>@Html.ActionLink("Application Theme", "SelectTheme", "AppSettings")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            @EntityStrings.Employees / @CommonStrings.Users<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink(CommonStrings.Users, "Index", "Users")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink(EntityStrings.Employees, "Index", "Employees")</li>
+                            <li>@Html.ActionLink(EntityStrings.CreateEmployee, "Create", "Employees")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink(@EntityStrings.EmployeePositions, "Index", "EmployeePositions")</li>
+                            <li>@Html.ActionLink(@EntityStrings.CreateEmployeePosition, "Create", "EmployeePositions")</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Critical Path Admin Panel</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("bottom", required: false)
+</body>
+</html>

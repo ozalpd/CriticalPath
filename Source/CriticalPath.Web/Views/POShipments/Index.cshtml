@@ -1,0 +1,96 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model IEnumerable<POShipment>
+@{
+    ViewBag.Title = @EntityStrings.POShipments;
+
+    //Authorization Flags
+    bool canUserEdit = ViewBag.canUserEdit;
+    bool canUserCreate = ViewBag.canUserCreate;
+    bool canUserDelete = ViewBag.canUserDelete;
+    bool canSeeRestricted = ViewBag.canSeeRestricted;
+
+    //Records & Pager
+    int page = ViewBag.page;
+    int totalCount = ViewBag.totalCount;
+    int pageSize = ViewBag.pageSize;
+    int pageCount = ViewBag.pageCount;
+
+    int purchaseOrderId = ViewBag.purchaseOrderId ?? 0;
+
+    var title = EntityStrings.POShipments;
+}
+<div class="well hidden-print">
+    <div class="row">
+        <div class="col-md-6 col-sm-5">
+            <h4>@title</h4>
+        </div>
+        @if (purchaseOrderId > 0)
+        {
+            <div class="col-sm-2">
+                @Html.ActionLink(ActionStrings.AddNew, "Create", new { purchaseOrderId = purchaseOrderId}, new { @class = "btn btn-primary", input_modal = EntityStrings.AddNewPOShipment })
+            </div>
+        }
+       
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "searchForm" }))
+        {
+            @Html.Hidden("page", page)
+            @Html.Hidden("pageSize", pageSize)
+            <div class="col-md-4 col-sm-5">
+                @Html.Partial("_SearchBoxPartial")
+            </div>
+        }
+    </div>
+</div>
+<div id="pOShipmentGridParent" class="table-responsive">
+    @Html.Partial("_Index")
+</div>
+@Html.Partial("_MessageBoxPartial")
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Html.Partial("_IndexScriptsPartial", "POShipments") @* Controller's name *@
+    <script type="text/javascript">
+        (function () {
+            $.ajaxSetup({
+                cache: false
+            });
+            $('a[input-modal]').on('click', function () {
+                showMessageBox('@MessageStrings.Loading...', '@MessageStrings.PleaseWait.', false);
+                var title = $(this).attr("input-modal");
+                var url = this.href;
+                url += (url.indexOf('?') == -1) ? '?' : '&';
+                url += 'modal=true';
+                $('#dataInputBody').load(url, function () {
+                    hideMessageBox();
+                    if (title != null || title != '') {
+                        $('#dataInputTitle').html(title);
+                    }
+                    var inputForm = document.getElementById('dataInputForm');
+                    if (isNaN(inputForm)) {
+                        $('#dataInputFooter').show();
+                    }
+                    else {
+                        $('#dataInputFooter').hide();
+                    }
+                    $('#dataInputModal').modal('show');
+                });
+                return false;
+            });
+        }());
+        function onActionMenuClick(menuBtn) {
+            setTimeout(function () {
+                var menuHeight = 160;
+                var rectMenu = menuBtn.getBoundingClientRect();
+                var rectGrid = document.getElementById("pOShipmentGrid").getBoundingClientRect();
+                var diffY = rectGrid.bottom - rectMenu.bottom - menuHeight;
+
+                if (diffY < 0) {
+                    var viewport = $('#pOShipmentGridParent');
+                    var viewportScroll = viewport.scrollTop();
+                    viewport.scrollTop((diffY * -1) + viewportScroll);
+                }
+            }, 250);
+        }
+    </script>
+}

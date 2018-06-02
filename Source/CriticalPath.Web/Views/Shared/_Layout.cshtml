@@ -1,0 +1,86 @@
+﻿@using CP.i8n
+@using CriticalPath.Web.Models
+@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+@section styles{
+    <link href="~/Content/fileupload.css" rel="stylesheet" />
+}
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Critical Path", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                @*<li>@Html.ActionLink(CommonStrings.Home, "Index", "Home")</li>*@
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        @EntityStrings.Products<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink(EntityStrings.Products, "Index", "Products")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreateProduct, "Create", "Products")</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink(EntityStrings.ProductCategories, "Index", "ProductCategories")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreateProductCategory, "Create", "ProductCategories")</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        @EntityStrings.PurchaseOrders<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink(EntityStrings.PurchaseOrders, "Index", "PurchaseOrders")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreateProduct, "Create", "Products")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreatePurchaseOrder, "Create", "PurchaseOrders")</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink(EntityStrings.Suppliers, "Index", "Suppliers")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreateSupplier, "Create", "Suppliers")</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink(EntityStrings.Processes, "Index", "Processes")</li>
+                        <li>@Html.ActionLink(EntityStrings.ProcessSteps, "Index", "ProcessSteps")</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        @EntityStrings.Companies<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink(EntityStrings.Customers, "Index", "Customers")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreateCustomer, "Create", "Customers")</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink(EntityStrings.Licensors, "Index", "Licensors")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreateLicensor, "Create", "Licensors")</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink(EntityStrings.Suppliers, "Index", "Suppliers")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreateSupplier, "Create", "Suppliers")</li>
+                        @*<li class="divider"></li>
+                        <li>@Html.ActionLink(EntityStrings.Manufacturers, "Index", "Manufacturers")</li>
+                        <li>@Html.ActionLink(EntityStrings.CreateManufacturer, "Create", "Manufacturers")</li>*@
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink(EntityStrings.Contacts, "Index", "Contacts")</li>
+                    </ul>
+                </li>
+                @if (User.IsInRole(SecurityRoles.Admin))
+                    {
+                    <li>@Html.ActionLink(CommonStrings.Admin, "Index", "Admin")</li>
+                    }
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+</div>
+<div id="mainContent" class="container-fluid body-content">
+    @RenderBody()
+    <footer id="mainFooter">
+        <hr />
+        <p>&copy; @DateTime.Now.Year - C.P. App</p>
+    </footer>
+</div>
+@RenderSection("scripts", required: false)

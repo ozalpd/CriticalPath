@@ -1,0 +1,248 @@
+﻿@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model PurchaseOrderVM
+@{
+    ViewBag.Title = EntityStrings.PurchaseOrder;
+
+    //Authorization Flags
+    bool canUserEdit = ViewBag.canUserEdit ?? false;
+    bool canUserCreate = ViewBag.canUserCreate ?? false;
+    bool canUserDelete = ViewBag.canUserDelete ?? false;
+    bool canSeeRestricted = ViewBag.canSeeRestricted ?? false;
+}
+
+@Html.Partial("_ICancellationPartial")
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.OrderDate)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.OrderDate)
+    </div>
+</div>
+<div class="row mb5">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.PoNr)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.PoNr)
+    </div>
+</div>
+<div class="row mb5">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.RefCode)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.RefCode)
+    </div>
+</div>
+<div class="row mb5">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.CustomerRefNr)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.CustomerRefNr)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        <span class="checkboxText">@Html.DisplayNameFor(model => model.IsApproved)</span>
+        @Html.DisplayFor(m => m.IsApproved)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.ApproveDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.DueDate)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.DueDate)
+    </div>
+</div>
+
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.DesignerName)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.DesignerName)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @EntityStrings.Merchandiser
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.Merchandiser1Name) /
+        @Html.DisplayFor(m => m.Merchandiser2Name)
+    </div>
+</div>
+
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.Customer)
+    </label>
+    <div class="col-md-10 col-sm-9 mt5 fontSize150pc">
+        @Html.DisplayFor(m => m.Customer)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.CustomerDepartment)
+    </label>
+    <div class="col-md-10 col-sm-9 mt5 fontSize150pc">
+        @Html.DisplayFor(m => m.CustomerDepartment)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.Licensor)
+    </label>
+    <div class="col-md-10 col-sm-9 mt5 fontSize150pc">
+        @Html.DisplayFor(m => m.Licensor)
+    </div>
+</div>
+
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.Images)
+    </label>
+    <div class="col-md-10 col-sm-9 mt5">
+        @Html.DisplayFor(m => m.Images)
+    </div>
+</div>
+
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @CommonStrings.ProductImage
+    </label>
+    <div class="col-lg-4 col-md-5 col-sm-5">
+        <img src='@Model.ProductImage' style="width:100%" />
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.Product)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10 fontSize125pc">
+        @Html.DisplayFor(m => m.Product)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.Description)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.Description)
+    </div>
+</div>
+
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.Quantity)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.Quantity)
+    </div>
+</div>
+
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.FreightTerm)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.FreightTerm)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.ShipmentHangingFolded)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.ShipmentHangingFolded)
+    </div>
+</div>
+
+@if (canSeeRestricted)
+{
+    <div class="row mb5">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.DiscountRate)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.DiscountRate)
+        </div>
+    </div>
+    <div class="row mb5">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            <div class="col-md-2 col-sm-3 col-xs-4 ml0 pl0">
+                @Html.DisplayFor(m => m.UnitPrice)
+                @Html.DisplayFor(m => m.SellingCurrency)
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-4 pl0">
+                @Html.DisplayFor(m => m.UnitPrice2)
+                @Html.DisplayFor(m => m.SellingCurrency2)
+            </div>
+        </div>
+    </div>
+    <div class="row mb5">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.LicensorPrice)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.LicensorPrice)
+            @Html.DisplayFor(m => m.LicensorCurrency)
+        </div>
+    </div>
+}
+<div class="row mb5">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.BuyingPrice)
+    </label>
+    <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+        <div class="col-md-2 col-sm-3 col-xs-4 ml0 pl0">
+            @Html.DisplayFor(m => m.BuyingPrice)
+            @Html.DisplayFor(m => m.BuyingCurrency)
+        </div>
+        <div class="col-md-2 col-sm-3 col-xs-4 pl0">
+            @Html.DisplayFor(m => m.BuyingPrice2)
+            @Html.DisplayFor(m => m.BuyingCurrency2)
+        </div>
+    </div>
+</div>
+@if (canSeeRestricted)
+{
+    <div class="row mb5">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.RoyaltyFee)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.RoyaltyFee)
+            @Html.DisplayFor(m => m.RoyaltyCurrency)
+        </div>
+    </div>
+    <div class="row mb5">
+        <label class="control-label col-md-2 col-sm-3 mb5">
+            @Html.DisplayNameFor(model => model.RetailPrice)
+        </label>
+        <div class="col-lg-8 col-md-9 col-sm-9 mt10">
+            @Html.DisplayFor(m => m.RetailPrice)
+            @Html.DisplayFor(m => m.RetailCurrency)
+        </div>
+    </div>
+}
+@Html.Partial("_PoSizeRatios")
+<div class="row mt15">
+    <label class="control-label col-md-2 col-sm-3 mb5">
+        @Html.DisplayNameFor(model => model.Notes)
+    </label>
+    <div class="col-md-10 col-sm-9 mt10">
+        @Html.DisplayFor(m => m.Notes)
+    </div>
+</div>

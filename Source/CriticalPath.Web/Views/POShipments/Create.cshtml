@@ -1,0 +1,13 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model POShipmentDTO
+@{
+    ViewBag.Title = EntityStrings.CreatePOShipment;
+}
+<h2 class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3">@ViewBag.Title</h2>
+@Html.Partial("_Create")
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

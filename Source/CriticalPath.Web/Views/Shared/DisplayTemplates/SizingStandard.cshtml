@@ -1,0 +1,20 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model SizingStandard
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    <div class="col-lg-3 col-md-5">@Model.Title</div>
+    int i = 0;
+    foreach (var sizing in Model.Sizings)
+    {
+        string divClass = i==6 ?
+                "shadedRoundCaption col-lg-1 col-lg-offset-0 col-md-1 col-md-offset-5 visible-lg visible-md" :
+                "shadedRoundCaption col-lg-1 col-md-1 visible-lg visible-md";
+        <div class='@divClass'>@sizing.Caption</div>
+        i++;
+    }
+}

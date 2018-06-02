@@ -1,0 +1,13 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model Contact
+@{
+    ViewBag.Title = EntityStrings.EditContact;
+}
+<h2 class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3">@ViewBag.Title</h2>
+@Html.Partial("_Edit")
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

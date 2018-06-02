@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5C01D422-7433-4FDC-947D-07D7C5D0788E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CriticalPath.Data</RootNamespace>
+    <AssemblyName>CriticalPath.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contact.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DateTimeExtensions.cs" />
+    <Compile Include="Helpers\PersonExtensions.cs" />
+    <Compile Include="Metadata\POAttachment.meta.cs" />
+    <Compile Include="Metadata\POAttachmentDTO.meta.cs" />
+    <Compile Include="Metadata\POImage.meta.cs" />
+    <Compile Include="Metadata\POImageDTO.meta.cs" />
+    <Compile Include="Metadata\POShipment.meta.cs" />
+    <Compile Include="Metadata\POShipmentDTO.meta.cs" />
+    <Compile Include="Parts\ContactDTO.part.cs" />
+    <Compile Include="Country.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CriticalPathContext.utils.cs" />
+    <Compile Include="CustomerDepartment.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeePosition.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enums.cs" />
+    <Compile Include="Licensor.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\CustomerDepartment.meta.cs" />
+    <Compile Include="Metadata\CustomerDepartmentDTO.meta.cs" />
+    <Compile Include="Metadata\Employee.meta.cs" />
+    <Compile Include="Metadata\EmployeeDTO.meta.cs" />
+    <Compile Include="Metadata\EmployeePosition.meta.cs" />
+    <Compile Include="Metadata\EmployeePositionDTO.meta.cs" />
+    <Compile Include="Metadata\Licensor.meta.cs" />
+    <Compile Include="Metadata\LicensorDTO.meta.cs" />
+    <Compile Include="Metadata\ProcessStepRevision.meta.cs" />
+    <Compile Include="Metadata\ProcessStepRevisionDTO.meta.cs" />
+    <Compile Include="Parts\EmployeeDTO.part.cs" />
+    <Compile Include="Parts\CountryDTO.part.cs" />
+    <Compile Include="CriticalPathContext.static.cs" />
+    <Compile Include="Currency.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FreightTerm.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Manufacturer.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\AspNetUser.meta.cs" />
+    <Compile Include="Metadata\AspNetUserDTO.meta.cs" />
+    <Compile Include="Metadata\Country.meta.cs" />
+    <Compile Include="Metadata\CountryDTO.meta.cs" />
+    <Compile Include="Metadata\Currency.meta.cs" />
+    <Compile Include="Metadata\CurrencyDTO.meta.cs" />
+    <Compile Include="Metadata\FreightTerm.meta.cs" />
+    <Compile Include="Metadata\FreightTermDTO.meta.cs" />
+    <Compile Include="Metadata\Manufacturer.meta.cs" />
+    <Compile Include="Metadata\ManufacturerDTO.meta.cs" />
+    <Compile Include="Metadata\SizeRatio.meta.cs" />
+    <Compile Include="Metadata\SizeRatioDTO.meta.cs" />
+    <Compile Include="Parts\CustomerDTO.part.cs" />
+    <Compile Include="Metadata\Sizing.meta.cs" />
+    <Compile Include="Metadata\SizingDTO.meta.cs" />
+    <Compile Include="Metadata\SizingStandard.meta.cs" />
+    <Compile Include="Metadata\SizingStandardDTO.meta.cs" />
+    <Compile Include="Parts\Contact.part.cs" />
+    <Compile Include="CriticalPathContext.query.cs" />
+    <Compile Include="CriticalPathContext.save.cs" />
+    <Compile Include="CriticalPathModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CriticalPathModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CriticalPathModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CriticalPathModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CriticalPathModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\Contact.meta.cs" />
+    <Compile Include="Metadata\ContactDTO.meta.cs" />
+    <Compile Include="Metadata\Customer.meta.cs" />
+    <Compile Include="Metadata\CustomerDTO.meta.cs" />
+    <Compile Include="Metadata\Process.meta.cs" />
+    <Compile Include="Metadata\ProcessDTO.meta.cs" />
+    <Compile Include="Metadata\ProcessStep.meta.cs" />
+    <Compile Include="Metadata\ProcessStepDTO.meta.cs" />
+    <Compile Include="Metadata\ProcessStepTemplate.meta.cs" />
+    <Compile Include="Metadata\ProcessStepTemplateDTO.meta.cs" />
+    <Compile Include="Metadata\ProcessTemplate.meta.cs" />
+    <Compile Include="Metadata\ProcessTemplateDTO.meta.cs" />
+    <Compile Include="Metadata\Product.meta.cs" />
+    <Compile Include="Metadata\ProductCategory.meta.cs" />
+    <Compile Include="Metadata\ProductCategoryDTO.meta.cs" />
+    <Compile Include="Metadata\ProductDTO.meta.cs" />
+    <Compile Include="Metadata\PurchaseOrder.meta.cs" />
+    <Compile Include="Metadata\PurchaseOrderDTO.meta.cs" />
+    <Compile Include="Metadata\Supplier.meta.cs" />
+    <Compile Include="Metadata\SupplierDTO.meta.cs" />
+    <Compile Include="Parts\ProcessDTO.part.cs" />
+    <Compile Include="Parts\ProcessStepDTO.part.cs" />
+    <Compile Include="Parts\ProcessTemplateDTO.part.cs" />
+    <Compile Include="POAttachment.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POImage.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parts\POImageDTO.part.cs" />
+    <Compile Include="POShipment.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POSizeRatio.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Process.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessStep.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parts\ProcessStep.part.cs" />
+    <Compile Include="ProcessStepRevision.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessStepTemplate.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessTemplate.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parts\Product.part.cs" />
+    <Compile Include="ProductCategory.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parts\ProductDTO.part.cs" />
+    <Compile Include="Parts\ProductCategoryDTO.part.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Parts\PurchaseOrderDTO.part.cs" />
+    <Compile Include="PurchaseOrder.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parts\SizingStandardDTO.part.cs" />
+    <Compile Include="Parts\PurchaseOrder.part.cs" />
+    <Compile Include="Sizing.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SizingStandard.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier.cs">
+      <DependentUpon>CriticalPathModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parts\SupplierDTO.part.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="CriticalPathModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CriticalPathModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CriticalPathModel.edmx.diagram">
+      <DependentUpon>CriticalPathModel.edmx</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CriticalPathModel.Settings.ttinclude" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OzzUtils\OzzUtils.csproj">
+      <Project>{D417166B-12EB-43B5-AF18-D634AE620F0B}</Project>
+      <Name>OzzUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CP.i8n\CP.i8n.csproj">
+      <Project>{08c5a2da-fe18-4320-8b21-9923b16cba0e}</Project>
+      <Name>CP.i8n</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OzzIdentity\OzzIdentity.csproj">
+      <Project>{5c618f83-e9cc-4ce6-b692-bfb279960824}</Project>
+      <Name>OzzIdentity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CriticalPathModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CriticalPathModel.edmx</DependentUpon>
+      <LastGenOutput>CriticalPathModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CriticalPathModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CriticalPathModel.edmx</DependentUpon>
+      <LastGenOutput>CriticalPathModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

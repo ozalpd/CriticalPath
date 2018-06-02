@@ -1,0 +1,345 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model IEnumerable<ProcessDTO>
+@{
+    ViewBag.Title = @EntityStrings.Processes;
+
+    //Authorization Flags
+    bool canUserEdit = ViewBag.canUserEdit;
+    bool canUserCreate = ViewBag.canUserCreate;
+    bool canUserDelete = ViewBag.canUserDelete;
+    bool canSeeRestricted = ViewBag.canSeeRestricted;
+    bool canUserApprove = ViewBag.canUserApprove;
+    bool canUserCancelPO = ViewBag.canUserCancelPO;
+
+    ProcessStepTemplateDTO[] templates = ViewBag.templates as ProcessStepTemplateDTO[];
+    int stepsCount = templates.Length;
+    string[] stepRenderers = new string[stepsCount];
+    var headerWidth = string.Format("{0}px;", (stepsCount * 92) + 918);
+
+    var title = EntityStrings.Processes;
+}
+<div class="row well hidden-print">
+    <div class="col-md-6 col-sm-5">
+        <h4>@title</h4>
+    </div>
+    <div class="col-sm-2">
+        <a href="javascript:downloadTable('pdf');" class="btn btn-sm btn-danger mt5" style="margin-left:-4px;" title="Download a PDF file"><i class="fa fa-file-pdf-o"></i></a>
+        <a href="javascript:downloadTable();" class="btn btn-sm btn-success mt5" style="margin-right:-6px;" title="Download an image file"><i class="fa fa-file-image-o"></i></a>
+    </div>
+    <div class="col-md-4 col-sm-5">
+        @Html.Partial("_SearchBoxPartial")
+    </div>
+</div>
+<div id="dataTable" class="row" style="height:760px">
+    <div id="mainGrid" class="ag-style ag-basic" style="width:100%;height:760px"></div>
+    <div id="headersForPrint" style="width: @headerWidth"></div>
+    <div class="clearfix" style="margin-top:-20px;"></div>
+</div>
+<nav><ul id="pagerUl" class="pagination"></ul></nav>
+@Html.Partial("_MessageBoxPartial")
+@section scripts{
+    @Scripts.Render("~/js/ag-grid")
+    @Html.Partial("_IndexScriptsPartial", "Processes") @* Controller's name *@
+    @Html.Partial("_agGridScriptsPartial", "/Processes/GetProcessPagedList")   @* Service url *@
+    @Html.Partial("_DateSubmitMessageBox", "/ProcessSteps/SetProcessStepDate") @* Service url *@
+    <script type="text/javascript">
+        var result = @Html.Raw(ViewBag.result);
+        var gridOptions;
+
+        var initPage = function() {
+            var init = this;
+            init.columnDefs = columnDefs();
+            init.gridOptions = {
+                columnDefs: init.columnDefs,
+                rowHeight: 57,
+                pageSize: result.pageSize,
+                headerHeight: 48,
+                //groupHeaders: true,
+                rowData: result.Items,
+                pinnedColumnCount: 9,
+                overlayNoRowsTemplate: '<span class="fontSize150pc">@MessageStrings.NoResults</span>'
+            };
+
+            @* Group Open/Close
+                     { headerName: '@ActionStrings.Action', field: "Id", width: 60, cellRenderer: actionCellRenderer},
+                     { headerName: '@EntityStrings.PurchaseOrder', field: "PoNr", width: 110, headerClass: "wrapText", headerGroup: '@ActionStrings.Details ', headerGroupShow: 'closed', cellRenderer: purchaseOrderCellRenderer },
+                     { headerName: '@EntityStrings.PurchaseOrder', field: "PoNr", width: 110, headerClass: "wrapText", headerGroup: '@ActionStrings.Details ', headerGroupShow: 'open', cellRenderer: purchaseOrderCellRenderer },
+                     { headerName: '@Html.DisplayNameFor(m => m.ProductCode)', field: "ProductCode", width: 90, cellClass: "wrapText", headerGroup: '@ActionStrings.Details ', headerGroupShow: 'open' },
+                     { headerName: '@Html.DisplayNameFor(m => m.ProductDescription)', field: "ProductDescription", width: 90, cellClass: "wrapText", headerGroup: '@ActionStrings.Details ', headerGroupShow: 'open' },
+                     { headerName: '@Html.DisplayNameFor(m => m.CustomerName)', field: "CustomerName", width: 90, cellClass: "wrapText", headerGroup: '@ActionStrings.Details ', headerGroupShow: 'open' },
+                     { headerName: '@Html.DisplayNameFor(m => m.ParentCategoryName)', field: "ParentCategoryName", width: 90, headerClass: "wrapText", cellClass: "wrapText", headerGroup: '@ActionStrings.Details ', headerGroupShow: 'open' },
+                     { headerName: '@Html.DisplayNameFor(m => m.Quantity)', field: "Quantity", width: 80, cellClass:'text-right', headerGroup: '@ActionStrings.Details ', headerGroupShow: 'open' },
+                     { headerName: '@Html.DisplayNameFor(m => m.SupplierName)', field: "SupplierName", width: 90, cellClass: "wrapText", headerGroup: '@ActionStrings.Details ', headerGroupShow: 'open' },
+            *@
+
+            function columnDefs(){
+                return[
+                     { headerName: '@ActionStrings.Action', field: "Id", width: 60, cellRenderer: actionCellRenderer},
+                     { headerName: '@EntityStrings.PurchaseOrder', field: "PoNr", width: 110, headerClass: "wrapText", cellRenderer: purchaseOrderCellRenderer },
+                     { headerName: '@Html.DisplayNameFor(m => m.ProductCode)', field: "ProductCode", width: 90, cellRenderer:productCellRenderer, cellClass: "wrapText" },
+                     { headerName: '@Html.DisplayNameFor(m => m.ProductDescription)', field: "ProductDescription", width: 90, cellClass: "wrapText" },
+                     { headerName: '@EntityStrings.Customer @EntityStrings.DepartmentName', field: "CustomerName", width: 90, headerClass: "wrapText", cellRenderer:customerCellRenderer, cellClass: "wrapText" },
+                     { headerName: '@Html.DisplayNameFor(m => m.SupplierName)', field: "SupplierName", width: 90, cellRenderer:supplierCellRenderer, cellClass: "wrapText" },
+                     { headerName: '@Html.DisplayNameFor(m => m.Quantity)', field: "Quantity", width: 80, cellClass:'text-right' },
+                     { headerName: '', field: "StartDate", width: 110, cellRenderer: verticalDateCellLabels },
+                     { headerName: 'PO Dates', field: "ApproveDate", width: 90, cellRenderer: verticalDateCellRenderer },
+                     @for (int i = 0; i < templates.Length; i++)
+                     {
+                         stepRenderers[i] = string.Format("stepCellRenderer{0}", templates[i].Id);
+                         @:{ headerName: '@templates[i].Title', headerTooltip: '@templates[i].Title', field: "ProcessSteps", width: 98, cellRenderer: @stepRenderers[i], headerClass: "wrapText" },
+                     }
+                ];
+            }
+
+            function setPrintColumns() {
+                var colWidths = [60, 110, 90, 90, 90, 90, 80, 110, 90];
+                var colNames = ['', '@EntityStrings.PurchaseOrder',
+                    '@EntityStrings.ProductCode',
+                    '@EntityStrings.Description',
+                    '@EntityStrings.Customer @EntityStrings.DepartmentName',
+                    '@EntityStrings.Supplier','@EntityStrings.Quantity',
+                    'CP Dates',
+                    'PO Dates'];
+                 @for (int i = 0; i < templates.Length; i++)
+                 {
+                     @: colWidths.push(98);
+                     @: colNames.push('@templates[i].Title');
+                 }
+
+                 for (var i = 0; i < colNames.length; i++) {
+                     var headDiv = $('<div/>')
+                         .addClass('printHeader pull-left')
+                         .text(colNames[i])
+                         .width(colWidths[i]);
+                     headDiv.appendTo('#headersForPrint');
+                 }
+                $('<div/>').addClass('clearfix').appendTo('#headersForPrint');
+                $('#headersForPrint').hide();
+                $('#busyAnima').hide();
+            }
+
+            @for (int i = 0; i < templates.Length; i++)
+            {
+                @:function @stepRenderers[i] (params){return stepToCell(params.value, @templates[i].Id, params);}
+            }
+
+            function stepToCell(steps, templateId, params){
+                var result = '';
+                $.each(steps, (function(index, step){
+                    if(step.TemplateId==templateId){
+                        var hasTargetDate = step.TargetDate!=null && step.TargetDate!='';
+                        var hasRealizedDate = step.RealizedDate!=null && step.RealizedDate!='';
+                        var realCls = hasRealizedDate ? 'row-even' : 'bg-danger';
+
+                        //result = stepDateQrtCell(step.Id, step.ApproveDate, 'row-even', params.data.PoNr + '/' + step.Title, '@EntityStrings.ApproveDate', 'submitTargetDate(' + step.Id + ')') +
+                        result = stepDateQrtCell(step.Id, step.TargetDate, 'row-even', params.data.PoNr + '/' + step.Title,'@EntityStrings.TargetDate', 'submitTargetDate(' + step.Id + ')', !hasTargetDate) +
+                           stepDateQrtCell(step.Id, step.ForecastDate, 'row-odd', params.data.PoNr + '/' + step.Title,'@EntityStrings.ForecastDate', 'submitForecastDate(' + step.Id + ')', (hasTargetDate && !hasRealizedDate)) +
+                           stepDateQrtCell(step.Id, step.RealizedDate, realCls, params.data.PoNr + '/' + step.Title,'@EntityStrings.RealizedDate', 'submitRealizedDate(' + step.Id + ')', (hasTargetDate && !hasRealizedDate));
+                        return false;
+                    }
+                }));
+                return result;
+            }
+
+            function stepDateQrtCell(stepId, jsonDate, clss, modalHeader, title, submitFunction, enabled){
+                var cell = '<div class="verticalQuarter ' + clss + '" title="' + title + '"><div class="btn-group inline"><a ';
+                if(enabled){
+                    cell = cell + 'href="#dateSubmitModal" data-toggle="modal" onclick="setDateSubmitModal(\'' +
+                        modalHeader + '\', \''+ title + '\', \''+ jsonDate + '\', \''+ submitFunction + '\')" class="btn btn-default btn-xxs">';
+                }
+                else{
+                    cell = cell  + ' class="btn btn-default btn-xxs disabled">';
+                }
+                cell = cell  + '<span class="glyphicon glyphicon-pencil"></span></a>' +
+                    '<div class="text-right" style="width:90px;">' +
+                    jsonDateToLocaleDateString(jsonDate) + '</div></div></div>';
+
+                return cell;
+            }
+
+            function productCellRenderer(params){
+                var img = '';
+                if(params.data.ImageUrl!=null && params.data.ImageUrl!=''){
+                    img = '<label class="btn pt0 pb0 pl0 pr0 mb2" style="max-height:36px;overflow:hidden;" onclick="showImage(\''+ params.value + '\', \'' +
+                        '@AppSettings.Urls.ProductImages/' + params.data.ImageUrl + '\', false)" title="' + params.data.ProductDescription + '">' +
+                        '<img src="@AppSettings.Urls.ThumbImages/' + params.data.ImageUrl + '" style="width:60px;margin-top:-8px;" /></label>';
+                }
+                return img + '<div class="verticalQuarter" title="' + params.data.ProductDescription + '">' + params.value + '</div>';
+            }
+
+            function customerCellRenderer(params){
+                var cell = '<div class="verticalHalf">' + params.value + '</div>';
+                if(params.data.DepartmentName!=null && params.data.DepartmentName!=''){
+                    cell = cell + '<div class="verticalQuarter">' + params.data.DepartmentName + '</div>';
+                }
+                return cell;
+            }
+
+            function supplierCellRenderer(params){
+                var cell = '<div class="verticalHalf">' + params.value + '</div>';
+                var stepsCount = @stepsCount;
+                var stepDivWidth = 100/stepsCount;
+
+                cell = cell + '<div class="verticalQuarter">';
+                $.each(params.data.ProcessSteps, (function(index, step){
+                        var hasTargetDate = step.TargetDate!=null && step.TargetDate!='';
+                        var hasRealizedDate = step.RealizedDate!=null && step.RealizedDate!='';
+                        var realCls = hasRealizedDate ? 'bg-success' : 'bg-danger text-danger';
+                    //border: 1px solid #fff;
+                        cell = cell + '<div class="' + realCls + ' pull-left" style="width:' + stepDivWidth + '%;min-height:14px;"></div>';
+                }));
+                cell = cell + '</div>';
+                return cell;
+            }
+
+            function purchaseOrderCellRenderer(params){
+                return '<div class="verticalQuarter fontSize125pc">' + params.value + '</div>' +
+                    '<div class="verticalQuarter text-right pr10" title="@EntityStrings.OrderDate">' + jsonDateToLocaleDateString(params.data.OrderDate) + '</div>' +
+                    '<div class="verticalQuarter text-right pr10" title="@EntityStrings.DueDate">' + jsonDateToLocaleDateString(params.data.DueDate) + '</div>';
+                @*'<div class="verticalQuarter" title="@EntityStrings.OrderDate">@EntityStrings.OrderDate <span class="text-right">' + jsonDateToLocaleDateString(params.data.OrderDate) + '</span></div>' +
+                    '<div class="verticalQuarter" title="@EntityStrings.DueDate"> @EntityStrings.DueDate <span class="text-right">' + jsonDateToLocaleDateString(params.data.DueDate) + '</span></div>';*@
+            }
+            function verticalDateCellRenderer(params){
+                //return '<div class="verticalQuarter text-right row-even">' +  jsonDateToLocaleDateString(params.data.ApproveDate) + '</div>' +
+                return    '<div class="verticalQuarter text-right row-even">' +  jsonDateToLocaleDateString(params.data.TargetDate) + '</div>' +
+                    '<div class="verticalQuarter text-right row-odd">' +  jsonDateToLocaleDateString(params.data.ForecastDate) + '</div>' +
+                    '<div class="verticalQuarter text-right row-even">' +  jsonDateToLocaleDateString(params.data.RealizedDate) + '</div>';
+            }
+
+            function verticalDateCellLabels(params){
+                //return '<div class="verticalQuarter row-even">@EntityStrings.ApproveDate</div>' +
+                return    '<div class="verticalQuarter row-header">@EntityStrings.TargetDate</div>' +
+                    '<div class="verticalQuarter row-header">@EntityStrings.ForecastDate</div>' +
+                    '<div class="verticalQuarter row-header">@EntityStrings.RealizedDate</div>';
+            }
+
+            function actionCellRenderer(params) {
+                var isCancelled = params.data.Cancelled==null ? false : params.data.Cancelled;
+                var isApproved = params.data.IsApproved==null ? false : params.data.IsApproved;
+                var isCompleted = params.data.IsCompleted==null ? false : params.data.IsCompleted;
+
+                var actions = '<div class="btn-group" style="margin-top:-3px;">' +
+                    '<button type="button" title="@ActionStrings.Action" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" onclick="onActionMenuClick(this)">' +
+                    '<span class="glyphicon glyphicon-tasks"></span> <span class="caret"></span>' +
+                    '</button>' +
+                    '<ul class="dropdown-menu mb15" role="menu">' +
+                    '<li><a href="@Url.Action("Details")/' + params.value + '">@ActionStrings.Details</a></li>';
+                @if (canUserEdit)
+                {
+                    @:actions = actions + '<li><a href="@Url.Action("Edit")/' + params.value + '">@EntityStrings.EditProcess</a></li>';
+                    @:actions = actions + '<li><a href="@Url.Action("Edit", "PurchaseOrders", null)/' + params.data.PurchaseOrderId + '">@EntityStrings.EditPurchaseOrder</a></li>';
+                    @:actions = actions + '<li><a href="@Url.Action("Create", "POImages", null)/?PurchaseOrderId=' + params.data.PurchaseOrderId + '">@EntityStrings.AddPOImage</a></li>';
+                    @:actions = actions + '<li><a href="@Url.Action("Edit", "Products", null)/' + params.data.ProductId + '">@EntityStrings.EditProduct</a></li>';
+                }
+                @if (canUserCancelPO)
+                {
+                    @:if(!isCancelled){actions = actions + '<li><a href="@Url.Action("CancelPO", "PurchaseOrders", null)/' + params.data.PurchaseOrderId + '">@ActionStrings.CancelPO</a></li>';}
+                }
+                @if (canUserApprove)
+                {
+                    @:if(!(isCancelled || isApproved)){actions = actions + '<li><a href="@Url.Action("ApproveProcess")/' + params.value + '">@ActionStrings.Approve</a></li>';}
+                }
+                actions = actions + '</ul></div>';
+                var title = '';
+
+                if(isCancelled){
+                    var date = new Date(params.data.CancelDate);
+                    title= '@EntityStrings.CancelDate ' + date.toLocaleDateString();
+                    actions = actions + '<div title="' + title + '">' + boolToGlyphRemoved(isCancelled) + '</div>';
+                }
+                else{
+                    if(isApproved){
+                        var date = new Date(params.data.ApproveDate);
+                        title= '@EntityStrings.ApproveDate ' + date.toLocaleDateString();
+                    }
+                    actions = actions + '<div title="' + title + '">' + boolToGlyphicon(isApproved) + '</div>';
+                }
+                if(isCompleted){
+                    var date = new Date(params.data.RealizedDate);
+                    title= '@EntityStrings.RealizedDate ' + date.toLocaleDateString();
+                    actions = actions + '<div title="' + title + '">' + boolToGlyphicon(isCompleted) + '</div>';
+                }
+                return actions;
+            }
+
+            $('#mainContent').removeClass('body-content').addClass('wGrid');
+            $('#mainFooter').hide();
+
+            $.ajaxSetup({ cache: false });
+            gridOptions = init.gridOptions;
+            // angularGrid is a global function
+            agGridGlobalFunc('#mainGrid', gridOptions);
+
+            setPagerButtons($('#pagerUl'), result.Page, result.PageCount);
+            displayRecordStats(result.Items.length, result.TotalCount);
+            setPrintColumns();
+        }
+
+        function submitTargetDate(id) { submitDate(id, {targetDate:$('#dateInput').val()}); }
+        function submitForecastDate(id) { submitDate(id, {forecastDate:$('#dateInput').val()}); }
+        function submitRealizedDate(id) { submitDate(id, {realizedDate:$('#dateInput').val()}); }
+
+        function downloadTable(opt) {
+            $('#busyAnima').show();
+            var stepsCount = @stepsCount;
+            var tableWidth = (stepsCount * 92) + 918;
+            gridOptions.headerHeight = 1;
+            $('#dataTable').width(tableWidth);
+            gridOptions.api.setRowData(result.Items);
+            $('#headersForPrint').show();
+            //$('#headersForPrint').css("margin-top", "-10px");
+            $('#mainGrid').css("margin-left", "-60px");
+            $('#headersForPrint').css("margin-left", "-62px");
+            setTimeout(function () {
+                html2canvas($("#dataTable"), {
+                    onrendered: function (canvas) {
+                        if (opt === 'pdf') {
+                            var itemCount = result.Items.length;
+                            var imgHeight = ((itemCount * 57) + 96)/2;
+                            console.log(itemCount);
+                            console.log(result.Items.length)
+                            var imgData = canvas.toDataURL(
+                            'image/png');
+                            var doc = new jsPDF('l', 'mm', 'a3');
+                            doc.addImage(imgData, 'PNG', 10, 10, 410, 105);
+                            doc.save('CPtable.pdf');
+                        }
+                        else {
+                            var a = document.createElement('a');
+                            a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+                            a.download = 'CPtable.jpg';
+                            a.click();
+                        }
+                        gridOptions.headerHeight = 48;
+                    }
+                });
+            }, 1000);
+            setTimeout(function () {
+                //$('#mainGrid').css("margin-top", "0");
+                $('#mainGrid').css("margin-left", "0");
+                $('#headersForPrint').css("margin-left", "0");
+                $('#headersForPrint').hide();
+                $('#dataTable').css({ width: 'auto' });
+                $('#busyAnima').fadeOut('250');
+            }, 1750);
+        }
+
+        function onActionMenuClick(menuBtn){
+            setTimeout(function(){
+                var menuHeight = 220;
+                var rectMenu = menuBtn.getBoundingClientRect();
+                var rectGrid = document.getElementById("mainGrid").getBoundingClientRect();
+
+                var diffY = rectGrid.bottom - rectMenu.bottom - menuHeight;
+                if (diffY < 0) {
+                    var viewport = $('#mainGrid .ag-body-viewport');
+                    var viewportScroll = viewport.scrollTop();
+                    viewport.scrollTop((diffY * -1) + viewportScroll);
+                }
+            },250);
+        }
+        document.addEventListener("DOMContentLoaded", initPage());
+    </script>
+}

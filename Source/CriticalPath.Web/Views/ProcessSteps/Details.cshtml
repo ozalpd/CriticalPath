@@ -1,0 +1,112 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model ProcessStep
+@{
+    ViewBag.Title = EntityStrings.ProcessStep;
+
+    //Authorization Flags
+    bool canUserEdit = ViewBag.canUserEdit;
+    bool canUserCreate = ViewBag.canUserCreate;
+    bool canUserDelete = ViewBag.canUserDelete;
+}
+
+<h2>@EntityStrings.ProcessStep @ActionStrings.Details</h2>
+
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.IsApproved)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.IsApproved)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ApproveDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ApproveDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.Title)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.Title)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.Description)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.Description)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.IsCompleted)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.IsCompleted)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.Process)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.Process)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.TargetDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.TargetDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ForecastDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ForecastDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.RealizedDate)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.RealizedDate)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ApprovedUser)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ApprovedUser)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.ModifiedUser)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.ModifiedUser)
+    </div>
+</div>
+<div class="row">
+    <label class="control-label col-md-2 col-sm-3">
+        @Html.DisplayNameFor(model => model.CreatedUser)
+    </label>
+    <div class="col-md-10 col-sm-9">
+        @Html.DisplayFor(m => m.CreatedUser)
+    </div>
+</div>
+@Html.Partial("_DetailFormButtonsPartial")

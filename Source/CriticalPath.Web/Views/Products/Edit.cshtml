@@ -1,0 +1,65 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model ProductEditVM
+@{
+    ViewBag.Title = EntityStrings.EditProduct;
+}
+<h2 class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3">@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        @Html.Partial("_ProductCategorySelectPartial", Model)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductCode, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3" })
+            <div class="col-lg-5 col-md-6 col-sm-7">
+                @Html.TextBoxFor(m => m.ProductCode, new { @class = "form-control", autocomplete = "off" })
+                @Html.ValidationMessageFor(m => m.ProductCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3" })
+            <div class="col-lg-5 col-md-6 col-sm-7">
+                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", autocomplete = "off" })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Licensed, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3" })
+            <div class="col-lg-5 col-md-6 col-sm-7">
+                @Html.EditorFor(m => m.Licensed, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(m => m.Licensed, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(m => m.ImageUrl)
+        <div class="form-group">
+            @Html.Label(CommonStrings.ProductImage, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3" })
+            <div class="col-lg-5 col-md-6 col-sm-7">
+                @Html.Partial("_ImageUpload", new ImageUploadViewModel("ChangedImageFile", Model.ImageUrl))
+                @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.Partial("_AllPriceEdit", Model)
+
+        @Html.Partial("_AutoCompleteSupplier")
+        @Html.Partial("_SaveButtonsPartial")
+    </div>
+}
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/libs/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+    <script src="~/libs/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+    <script src="~/libs/jQuery-File-Upload/js/jquery.iframe-transport.min.js"></script>
+    <script src="~/libs/jQuery-File-Upload/js/jquery.fileupload.min.js"></script>
+    <script src="~/libs/jQuery-File-Upload/js/jquery.fileupload-process.min.js"></script>
+    <script src="~/libs/jQuery-File-Upload/js/jquery.fileupload-image.min.js"></script>
+    <script src="~/libs/jQuery-File-Upload/js/jquery.fileupload-validate.min.js"></script>
+}

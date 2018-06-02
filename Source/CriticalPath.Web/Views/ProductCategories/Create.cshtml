@@ -1,0 +1,44 @@
+@using CriticalPath.Web.Models
+@using CriticalPath.Data
+@using CP.i8n
+@model ProductCategory
+@{
+    ViewBag.Title = EntityStrings.CreateProductCategory;
+}
+<h2 class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3">@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentCategoryId, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3" })
+            <div class="col-lg-5 col-md-6 col-sm-7">
+                @Html.DropDownList("ParentCategoryId", null, ActionStrings.SelectPlease, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ParentCategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3" })
+            <div class="col-lg-5 col-md-6 col-sm-7">
+                @Html.TextBoxFor(m => m.CategoryName, new { @class = "form-control", autocomplete = "off" })
+                @Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryCode, htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-sm-3" })
+            <div class="col-lg-5 col-md-6 col-sm-7">
+                @Html.TextBoxFor(m => m.CategoryCode, new { @class = "form-control", autocomplete = "off" })
+                @Html.ValidationMessageFor(m => m.CategoryCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.Partial("_SaveButtonsPartial")
+    </div>
+}
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
